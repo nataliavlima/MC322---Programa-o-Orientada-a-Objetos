@@ -1,4 +1,4 @@
-package lab02;
+package lab2;
 import java.util.Random;
 
 public class Sinistro {

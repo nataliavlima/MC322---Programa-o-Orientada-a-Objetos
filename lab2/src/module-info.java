@@ -2,8 +2,8 @@
  * 
  */
 /**
- * @author ra185483
+ * @author natalia vieira lima
  *
  */
-module lab02 {
+module lab2 {
 }
