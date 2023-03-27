@@ -38,5 +38,10 @@ public class Veiculo {
 		this.modelo = modelo;
 	}
 	
-	
-}
+	 // toString()
+	public String toString () {
+		String saida = "";
+		saida += " Placa: " + getPlaca() + "\n Marca: " + getMarca() + " \n Modelo: " + getModelo() + "\n";
+		return saida;
+		}
+	}

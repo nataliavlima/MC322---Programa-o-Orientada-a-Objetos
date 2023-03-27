@@ -47,4 +47,11 @@ public class Seguradora {
 		 this.endereco = endereco;
 	 	}
 
-	 }
+	 // toString()
+	public String toString () {
+		String saida = "";
+		saida += " Nome: " + getNome() + "\n Telefone: " + getTelefone() + " \n Email: " + getEmail() + "\n Endereço:  " + getEndereco()+ "\n";
+		return saida;
+		}
+	}
+
