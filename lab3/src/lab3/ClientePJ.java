@@ -12,8 +12,8 @@ public class ClientePJ extends Cliente {
 		 List < Veiculo > listaVeiculos , String cnpj , Date dataFundacao ) {
 	 
  // chama o construtor da superclasse
- super ( nome , endereco , dataLicenca , educacao , genero , classeEconomica);
- //super ( nome , endereco , dataLicenca , educacao , genero , classeEconomica , listaVeiculos );
+ 
+ super ( nome , endereco , dataLicenca , educacao , genero , classeEconomica , listaVeiculos );
  this.cnpj = cnpj;
  this.dataFundacao = dataFundacao;
  }
@@ -116,8 +116,9 @@ public class ClientePJ extends Cliente {
  
  @Override
  public String toString () {
+	
 		String saida = "";
-		saida += " Cnpj: " + this.cnpj + " \n Data de Fundação: " + this.dataFundacao + "\n";
+		saida += super.toString() + " Cnpj: " + this.cnpj + " \n Data de Fundação: " + this.dataFundacao + "\n";
 		return saida;
 		}
  }

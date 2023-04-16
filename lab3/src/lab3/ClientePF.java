@@ -12,8 +12,7 @@ public class ClientePF extends Cliente {
  List < Veiculo > listaVeiculos , String cpf , Date dataNascimento ) {
 	 
  // chama o construtor da superclasse
- super ( nome , endereco , dataLicenca , educacao , genero , classeEconomica);
- //super ( nome , endereco , dataLicenca , educacao , genero , classeEconomica , listaVeiculos );
+ super ( nome , endereco , dataLicenca , educacao , genero , classeEconomica , listaVeiculos );
  this.cpf = cpf ;
  this .dataNascimento = dataNascimento ;
  }
@@ -114,7 +113,7 @@ public class ClientePF extends Cliente {
  @Override
  public String toString () {
 		String saida = "";
-		saida += " Cpf: " + this.cpf + " \n Data de Nascimento: " + this.dataNascimento + "\n";
+		saida += super.toString() + " Cpf: " + this.cpf + " \n Data de Nascimento: " + this.dataNascimento + "\n";
 		return saida;
 		}
  }

@@ -51,8 +51,11 @@ public class Veiculo {
 	
 	 // toString()
 	public String toString () {
-		String saida = "";
-		saida += " Placa: " + getPlaca() + "\n Marca: " + getMarca() + " \n Modelo: " + getModelo() + " \n Ano de Fabricação: " + anoFabricacao + "\n";
-		return saida;
+		return  "\n   Placa: " + this.placa + 
+				", Marca: " + this.marca + 
+				" , Modelo: " + this.modelo + 
+				" , Ano de Fabricação: " + this.anoFabricacao ;
+		
+		
 		}
 	}
