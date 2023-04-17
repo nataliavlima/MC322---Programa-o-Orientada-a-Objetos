@@ -170,7 +170,6 @@ public class Seguradora {
 			}
 		}
 		
-		//System.out.println(listaClientes);
 		return listaClientes;
 	}
 	

@@ -114,17 +114,18 @@ public class Main {
 		seg1.cadastrarCliente(c4);
 		seg1.cadastrarCliente(c4); // Nao vai adicionar propositalmente por conta do cliente 4 ja estar inserido 
 		
-		// Mostrar que o remover clientes da seguradora 1 
+		// Mostrar que a funcao remover clientes da seguradora 1 funciona
 		seg1.removerCliente("22 130 543 0001 66"); // cliente PJ (c4 = Clinica VS)
 		seg1.removerCliente("440.776.838-07");     // cliente PF (c3 = Luis Paulo)
+		
+		// Mostra a lista com os dois clientes (c3 e c4) removidos
+		System.out.println(seg1.getListaClientes());
 		
 		// Adiciona novamente para ter mais banco de dados no Menu
 		seg1.cadastrarCliente(c3);
 		seg1.cadastrarCliente(c4);
 		
-		// Mostra a lista com os dois clientes (c3 e c4) removidos
-		System.out.println(seg1.getListaClientes());
-		
+	
 	
 		// Gerar um toString de pelo menos uma classe
 		System.out.println("Cliente 01: \n" + c1.toString());
@@ -194,7 +195,6 @@ public class Main {
 				}while(opcao != 6);
 		}
 
-		// Declaracao das variaveis a serem utilizadas
-
+		
 		}
 	}
