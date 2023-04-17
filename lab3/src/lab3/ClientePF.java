@@ -5,7 +5,7 @@ import java.util.LinkedList;
 
 // define essa classe como uma subclasse de Cliente (extends)
 public class ClientePF extends Cliente {
- private String cpf ;
+ private final String cpf ;
  private Date dataNascimento ;
 
  public ClientePF ( String nome , String endereco , Date dataLicenca , String educacao , String genero , String classeEconomica ,
@@ -18,12 +18,8 @@ public class ClientePF extends Cliente {
  }
 
  // get e set CPF e data de nascimento
- public String getCpf() {
+ public  String getCpf() {
 	 return cpf;
- 	}
-
- public void setCpf(String cpf) {
-	 this.cpf = cpf;
  	}
 
  public Date getDataNascimento() {
@@ -35,7 +31,8 @@ public class ClientePF extends Cliente {
  	}
   
  
- public static boolean validarCpf(String cpf) {  // vai retornar verdadeiro ou falso pro cpf
+ public  boolean validarCpf() {  // vai retornar verdadeiro ou falso pro cpf
+	 	String cpf = getCpf();
 		// tira tudo que nao for numero 
 			cpf = cpf.replaceAll("[^0-9]+", ""); 
 			
@@ -49,7 +46,8 @@ public class ClientePF extends Cliente {
 			
 			// Verifica se tem 11 digitos
 			if(cpfInt.length != 11) {
-				 return false;
+				System.out.println(" é inválido!\n"); 
+				return false;
 			}
 			
 			// Verifica se os digitos sao iguais
@@ -61,6 +59,7 @@ public class ClientePF extends Cliente {
 			} 
 			
 			if(soma == 10) {   // se todos forem iguais a soma da 10 entao ele retorna que o cpf nao e' valido (falso)
+				System.out.println(" é inválido!\n");
 				return false;
 				}
 
@@ -101,9 +100,11 @@ public class ClientePF extends Cliente {
 			}
 	 
 			if((d1 == cpfInt[9]) && (d2 == cpfInt[10])) {        // se d1 = a penultima posicao do CPF = True
-				 return true;
+				System.out.println(" é válido!\n"); 
+				return true;
 			} 
 			else {
+				System.out.println(" é inválido!\n"); 
 				return false;
 			}
 			
@@ -113,7 +114,7 @@ public class ClientePF extends Cliente {
  @Override
  public String toString () {
 		String saida = "";
-		saida += super.toString() + " Cpf: " + this.cpf + " \n Data de Nascimento: " + this.dataNascimento + "\n";
+		saida += super.toString() + " Cpf: " + this.cpf + " \n Data de Nascimento: " + this.dataNascimento + "\n\n";
 		return saida;
 		}
  }

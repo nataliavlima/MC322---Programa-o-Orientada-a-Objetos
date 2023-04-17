@@ -86,7 +86,7 @@ public class Cliente {
 	
 	@Override
 	public String toString () {
-		return  "Nome: " + this.nome + 
+		return  " Nome: " + this.nome + 
 				"\n Endereço: " + this.endereco + 
 				"\n Data da Licença: " + this.dataLicenca + 
 				"\n Educação: " + this.educacao +  

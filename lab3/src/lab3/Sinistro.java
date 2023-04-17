@@ -1,5 +1,4 @@
 package lab3;
-import java.util.Random;
 import java.util.Date;
 
 public class Sinistro {
@@ -9,7 +8,7 @@ public class Sinistro {
 	private Seguradora seguradora;
 	private Veiculo veiculo;
 	private Cliente cliente;
-	private static int  num = 0;
+	private static int  num = 99999;
 	
 	// Construtor
 	public Sinistro(Date data, String endereco,Seguradora seguradora,Veiculo veiculo,Cliente cliente ) {
@@ -80,7 +79,12 @@ public class Sinistro {
 
 	 // toString()
 	public String toString () {
-		return "ID: " + this.id + ", Endereço: " + this.endereco + ", Seguradora: " + this.seguradora + ", Veículo: " + this.veiculo +  ", Cliente:  " + this.cliente+ "\n";
+		return "Sinistro:" +
+				"\n ID: " + this.id + 
+				"\n Endereço: " + this.endereco + 
+				"\n Seguradora: " + this.seguradora.getNome() + 
+				"\n Veículo: " + this.veiculo.getPlaca() +  
+				"\n Cliente:  " + this.cliente.getNome()+ "\n";
 		
 		}
 	}

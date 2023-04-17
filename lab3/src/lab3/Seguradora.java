@@ -1,6 +1,7 @@
 package lab3;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class Seguradora {
@@ -21,8 +22,6 @@ public class Seguradora {
 		 this.listaClientes = new ArrayList<Cliente>();
 	 	}
 
-		
-		
 	 // Getters e setters
 	 public String getNome() {
 		 return nome;
@@ -59,90 +58,191 @@ public class Seguradora {
 	 public List < Sinistro > getListaSinistros(){
 			return listaSinistros;
 			}
-	public void adiciona(Sinistro sinistro) {
+	public void adicionaSinistros(Sinistro sinistro) {
 		this.listaSinistros.add(sinistro);
 	}
 	public List < Cliente> getListaClientes(){
 		return listaClientes;
 		}
-	/*
-	public void adiciona(Cliente cliente) {
+	
+	public void adicionaClientes(Cliente cliente) {
 		this.listaClientes.add(cliente);
 	}
-	*/
+	
 	
 	
 	// Verifica se o cliente ja foi cadastrado antes, se nao foi ele adiciona novo
-	public boolean cadastrarCliente(Cliente cliente) {
-		//String nome = Cliente.getNome();
-		
-		if(listaClientes.contains(cliente)) {
-			System.out.println(cliente.getNome());
-			return false;	
-		} else {
-			listaClientes.add(cliente);
-			System.out.println(cliente.getNome());
-			return true;
-		}
-	}
-	 
-	// ele vai verificar a partir do CPF ou CNPJ pois sao os unicos itens unicos de cada cliente
-	public boolean removerCliente(String Documento) {
-				
-		// retirar todos os caracteres nao numeros
-		Documento = Documento.replaceAll("[^0-9]+", "");
-		
-		// transforma em um vetor de int
-		char[] arrayDocumento = Documento.toCharArray();        // pega a string e escreve como array
-		int[] DocumentoInt = new int[arrayDocumento.length];    // declara um vetor de int 
-		
-		for (int i = 0; i < arrayDocumento.length; i++) {
-			DocumentoInt[i] = Integer.parseInt(Documento.substring(i, i+1));  // adiciona numero por numero convertido no vetor de int
-		}
-
+	public boolean cadastrarCliente(Cliente cliente1) {
+		int verifica = 1;
 		
 		for(Cliente cliente : listaClientes) {  // percorre toda a lista de clientes 
+				if(cliente1 instanceof ClientePF) {
+					if(cliente instanceof ClientePF) { 		// Declara que o Cliente pertence a essa classe filha
+						if(((ClientePF) cliente1).getCpf().equals(((ClientePF) cliente).getCpf())) {
+							verifica = 0;
+						} 
+					}
+				}
 			
+				else if(cliente1 instanceof ClientePJ) {
+					if(cliente instanceof ClientePJ) {
+						if(((ClientePJ) cliente1).getCnpj().equals(((ClientePJ) cliente).getCnpj())) {
+							verifica = 0;
+							} 
+					}
+				}
+				
+		}
+		if(verifica == 0) {
+			System.out.println("Não foi possível adicionar cliente \"" + cliente1.getNome() + "\", já possui um cliente cadastrado com esse documento!\n");
+			return false;
+		} else if(verifica == 1) {
+			listaClientes.add(cliente1);
+			System.out.println("Cliente cadastrado com sucesso! \n");
+			return true;
+		}
+		return false;
+	
+	}
+	// funcao de transformar uma string em int[]
+	 public int[] transformaInt(String string) {
+		// retirar todos os caracteres nao numeros
+		 string = string.replaceAll("[^0-9]+", "");
+			
+			// transforma em um vetor de int
+			char[] arrayString = string.toCharArray();        // pega a string e escreve como array
+			int[] stringInt = new int[arrayString.length];    // declara um vetor de int 
+			
+			for (int i = 0; i < arrayString.length; i++) {
+				stringInt[i] = Integer.parseInt(string.substring(i, i+1));  // adiciona numero por numero convertido no vetor de int
+			}
+			return stringInt;
+	 }
+
+
+	// ele vai verificar e remover a partir do CPF ou CNPJ pois sao os unicos itens unicos de cada cliente
+	public boolean removerCliente(String Documento) {
+		int[] DocumentoInt = transformaInt(Documento);	
+		for(Cliente cliente : listaClientes) {  // percorre toda a lista de clientes 
+	
 			// Documento com 11 digitos =  cpf (Pessoa fisica)
-			if(DocumentoInt.length == 11) { 
-				if(cliente instanceof ClientePF) {  // acessa a classe filha Cliente PF
-					listaClientes.remove(cliente);  // remove
-					return true;
+			if(DocumentoInt.length == 11){  
+				if(cliente instanceof ClientePF) { 										// Declara que o Cliente pertence a essa classe filha
+					if(((ClientePF) cliente).getCpf().equals(Documento)){
+						listaClientes.remove(cliente); 									 // se o cpf pertence a lista com os cliente PF, ele remove
+						System.out.println("Cliente removido com sucesso!\n");
+						return true;
+					}
 				}
 			}
-			
-			// Documento com 11 digitos =  cnpj (Pessoa juridica)
-			if(DocumentoInt.length == 14){
+			// Documento com 14 digitos =  cnpj (Pessoa juridica)
+			else if(DocumentoInt.length == 14){
 				if(cliente instanceof ClientePJ) {
-					listaClientes.remove(cliente);
-					return true;
+					if(((ClientePJ) cliente).getCnpj().equals(Documento)) {
+						listaClientes.remove(cliente);  // remove
+						System.out.println("Cliente removido com sucesso!\n");
+						return true;
+					}
 				}
 			}
 			else { // se nao tem nem 11 nem 14 numeros = documento invalido
+				System.out.println("Não foi possível efetuar a remoção!\n");
 				return false;
-			}
-		
+			}	
 		}
-		return false;
+		System.out.println("Não foi possível efetuar a remoção!\n");
+		return false;	
+
+	}
+			
+	
+	// lista os clientes PF ou PJ dependendo do desejo do usuario
+	public List<Cliente> listarClientes(String tipoCliente){
+		List<Cliente> listaClientes = new ArrayList<Cliente>();
 		
+		for(Cliente cliente : getListaClientes() ) { 
+			//System.out.println(getListaClientes());	
+			if(((tipoCliente.equals("[1]"))|| (tipoCliente.equals("1"))) && (cliente instanceof ClientePF)) { // [1] = Pessoa Fisica
+				listaClientes.add(cliente);	
+				}
+			else if((tipoCliente.equals("[2]") || (tipoCliente.equals("2"))) && (cliente instanceof ClientePJ)) { // [2] Pessoa Juridica
+				listaClientes.add(cliente);	
+			}
+		}
+		
+		//System.out.println(listaClientes);
+		return listaClientes;
 	}
 	
-	//public List<Cliente> listarClientes(String )
+	public boolean gerarSinistro(Date data, String endereco,Seguradora seguradora,Veiculo veiculo,Cliente cliente){
+		 
+		 Sinistro s1 = new Sinistro(data,endereco,seguradora,veiculo,cliente);
+		  
+		 
+		 if(listaSinistros.size() == 0) {  // se nao tiver nenhum sinistro registrado (lista vazia) ele adiciona
+			 adicionaSinistros(s1);	
+			 System.out.println("Sinistro adicionado!\n");
+		 }
+		 for(Sinistro sinistro  : listaSinistros) { 	// percorre a lista de sinistro inteira
+			 
+			 if(s1.getId() == sinistro.getId()) {	// ve se esse sinistro ja foi registrado antes(id unico!)
+				 System.out.println("Sinistro já registrado!\n");
+				 return false;
+			 }else if(s1.getId() != sinistro.getId()) {
+			     adicionaSinistros(s1);		// se registro for novo, ele e' adicionado
+				 System.out.println("Sinistro adicionado!\n");
+				 //System.out.println(listaSinistros + "\n");
+				 return true;
+			 } 
+		 
+		 }
+		 
+		return false;
+	}
+
 	
-	// cadastrar cliente
-	// remover cliente
-	// listar clientes
-	// gerar sinistros
-	// visualizar sinistro
-	// listar sinistro
+	// Visualiza o id registrado em um id
+	 public boolean visualizarSinistro(int id){
+	 	for(Sinistro sinistro: listaSinistros) {
+	 		int idNovo = sinistro.getId();
+	 		if(idNovo == id) {
+	 			System.out.println(sinistro.toString()+ "\n");
+	 			return true;
+	 		} 
+	 	}
+	 	return false;
+	 }
+	 
+	 
+	 // Vai listar todas as ocorrencias de sinistros de um cliente
+	 public List < Sinistro > listarSinistros(String nomeCliente){
+	 List < Sinistro > listaSinistrosCliente = new ArrayList<Sinistro>();
+	 	
+	 	for(Sinistro sinistro : getListaSinistros()) {
+	 		String nomeClienteSinistro = sinistro.getCliente().getNome();
+	 		
+	 		if(nomeClienteSinistro.equals(nomeCliente)) {
+	 			listaSinistrosCliente.add(sinistro);  // adiciona todos os sinistros com o nome do cliente nessa lista nova
+	 		}
+	 		else if(listaSinistros.size() == 0) {  // se nao tiver nenhum sinistro registrado (lista vazia) ele adiciona	
+	 			 System.out.println("Sem registro de sinistros para esse cliente!\n");
+	 		 }
+	 	}
+	 	return listaSinistrosCliente; // retorna a lista nova
+	 }
 	
-	
-	
-	 // toString()
-	// Colocar para printar a lista sinsitro e clientes  1
+
 		public String toString () {
 			String saida = "";
-			saida += " Nome: " + getNome() + "\n Telefone: " + getTelefone() + " \n Email: " + getEmail() + "\n Endereço:  " + getEndereco()+ "\n";
+			saida += " \n  Seguradora:" + 
+					  "\n    Nome: " + getNome() + 
+					  "\n    Telefone: " + getTelefone() + 
+					  "\n    Email: " + getEmail() + 
+					  "\n    Endereço:  " + getEndereco()+ 
+					  "\n    Sinistros: " + getListaSinistros() + 
+					  "\n    Clientes: " + getListaClientes() + 
+					  "\n";
+			
 			return saida;
 			}
 	

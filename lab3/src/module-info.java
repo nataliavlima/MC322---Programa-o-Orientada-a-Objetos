@@ -6,4 +6,5 @@
  *
  */
 module lab3 {
+	requires java.sql;
 }

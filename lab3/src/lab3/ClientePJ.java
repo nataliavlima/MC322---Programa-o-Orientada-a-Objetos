@@ -5,7 +5,7 @@ import java.util.LinkedList;
 
 // define essa classe como uma subclasse de Cliente (extends)
 public class ClientePJ extends Cliente {
- private String cnpj;
+ private final String  cnpj;
  private Date dataFundacao ;
 
  public ClientePJ ( String nome , String endereco , Date dataLicenca , String educacao , String genero , String classeEconomica ,
@@ -19,12 +19,8 @@ public class ClientePJ extends Cliente {
  }
 
  // get e set CPF e data de fundação
- public String getCnpj() {
+ public  String getCnpj() {
 	 return cnpj;
- 	}
-
- public void setCnpj(String cnpj) {
-	 this.cnpj = cnpj;
  	}
 
  public Date getDataFundacao() {
@@ -36,7 +32,8 @@ public class ClientePJ extends Cliente {
  	}
   
  
- public static boolean validarCnpj(String cnpj) {  // vai retornar verdadeiro ou falso pro cpf
+ public  boolean validarCnpj() {  // vai retornar verdadeiro ou falso pro cpf
+	 String cnpj = getCnpj();
 	// tira tudo que nao for numero 
 				cnpj = cnpj.replaceAll("[^0-9]+", ""); 
 				
@@ -50,7 +47,8 @@ public class ClientePJ extends Cliente {
 				
 				// Verifica se tem 14 digitos
 				if(cnpjInt.length != 14) {
-					 return false;
+					System.out.println(" é inválido!\n"); 
+					return false;
 				}
 				
 				// Verifica se os digitos sao iguais
@@ -62,6 +60,7 @@ public class ClientePJ extends Cliente {
 				} 
 				
 				if(soma == 10) {   // se todos forem iguais a soma da 10 entao ele retorna que o cpf nao e' valido (falso)
+					System.out.println(" é inválido!\n");
 					return false;
 					}
 
@@ -106,9 +105,11 @@ public class ClientePJ extends Cliente {
 				}
 		 
 				if((d1 == cnpjInt[12]) && (d2 == cnpjInt[13])) {        // se d1 = a penultima posicao do CNPJ = True
-					 return true;
+					System.out.println(" é válido!\n"); 
+					return true;
 				} 
 				else {
+					System.out.println(" é inválido!\n");
 					return false;
 				}
 				
@@ -118,7 +119,7 @@ public class ClientePJ extends Cliente {
  public String toString () {
 	
 		String saida = "";
-		saida += super.toString() + " Cnpj: " + this.cnpj + " \n Data de Fundação: " + this.dataFundacao + "\n";
+		saida += super.toString() + " Cnpj: " + this.cnpj + " \n Data de Fundação: " + this.dataFundacao + "\n\n";
 		return saida;
 		}
  }
