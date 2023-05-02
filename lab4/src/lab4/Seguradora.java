@@ -164,10 +164,10 @@ public class Seguradora {
 		
 		for(Cliente cliente : getListaClientes() ) { 
 			//System.out.println(getListaClientes());	
-			if(((tipoCliente.equals("[1]"))|| (tipoCliente.equals("1"))) && (cliente instanceof ClientePF)) { // [1] = Pessoa Fisica
+			if(((tipoCliente.equals("[1]"))|| (tipoCliente.equals("1"))|| (tipoCliente.equals("PF"))) && (cliente instanceof ClientePF)) { // [1] = Pessoa Fisica
 				listaClientes.add(cliente);	
 				}
-			else if((tipoCliente.equals("[2]") || (tipoCliente.equals("2"))) && (cliente instanceof ClientePJ)) { // [2] Pessoa Juridica
+			else if((tipoCliente.equals("[2]") || (tipoCliente.equals("2"))|| (tipoCliente.equals("PJ"))) && (cliente instanceof ClientePJ)) { // [2] Pessoa Juridica
 				listaClientes.add(cliente);	
 			}
 		}
@@ -192,7 +192,6 @@ public class Seguradora {
 			 }else if(s1.getId() != sinistro.getId()) {
 			     adicionaSinistros(s1);		// se registro for novo, ele e' adicionado
 				 System.out.println("Sinistro adicionado!\n");
-				 //System.out.println(listaSinistros + "\n");
 				 return true;
 			 } 
 		 
@@ -236,19 +235,11 @@ public class Seguradora {
 	 
 	 public double calcularPrecoSeguroCliente(Cliente cliente1) throws ParseException  {
 		 double seguro = 0;
-		 // calculo do valor do seguro
+		 int quantidadeSinistros = listarSinistros(cliente1.getNome()).size();
 		 
-		 	if(cliente1 instanceof ClientePF) {
-				 seguro = ((ClientePF) cliente1).calculaScore();
-				cliente1.valorSeguro = seguro;
-				
-			} else if(cliente1 instanceof ClientePJ) {
-				 seguro = ((ClientePJ) cliente1).calculaScore();
-				cliente1.valorSeguro = seguro;
-			} else {
-				seguro = 0;
-			}
-		
+		 seguro = (cliente1.calculaScore(cliente1) * (1 + quantidadeSinistros));
+		 cliente1.valorSeguro = seguro;
+		 			
 		 return seguro;
 	 }
 	 

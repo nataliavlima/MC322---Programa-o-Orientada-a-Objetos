@@ -1,5 +1,6 @@
 package lab4;
 import java.util.List;
+import java.text.ParseException;
 import java.util.ArrayList;
 
 public class Cliente {
@@ -50,6 +51,23 @@ public class Cliente {
 		this.listaVeiculos.add(veiculo);
 	}
 	
+	public double calculaScore(Cliente cliente1) throws ParseException{
+		double seguro = 0;
+		 // calculo do valor do seguro
+		 
+		 	if(cliente1 instanceof ClientePF) {
+				 seguro = ((ClientePF) cliente1).calculaScore();
+				cliente1.valorSeguro = seguro;
+				
+			} else if(cliente1 instanceof ClientePJ) {
+				seguro = ((ClientePJ) cliente1).calculaScore();
+				cliente1.valorSeguro = seguro;
+			} else {
+				seguro = 0;
+			}
+		
+		 return seguro;
+	}
 	
 	@Override
 	public String toString () {
