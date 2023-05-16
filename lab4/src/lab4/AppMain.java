@@ -4,13 +4,29 @@ import java.util.ArrayList;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+<<<<<<< HEAD
+=======
+import java.util.List;
+>>>>>>> working
 import java.util.Scanner;
 
 
 
 
 public class AppMain {
+<<<<<<< HEAD
 	public static void main(String[] args) throws ParseException {
+=======
+	
+	
+	public static void main(String[] args) throws ParseException {
+		// Listas a serem utilizadas para armazenar todo mundo cadastrado
+		List<Cliente> listaClientesTotal = new ArrayList<Cliente>();
+		List<Seguradora> listaSeguradoraTotal = new ArrayList<Seguradora>();
+		List<Sinistro> listaSinistroTotal = new ArrayList<Sinistro>();
+		ArrayList<Veiculo> listaVeiculoTotal = new ArrayList<Veiculo>();
+		
+>>>>>>> working
 		// Declaracao das Datas no formato dd/MM/yyyy que serao usadas nos clientes e sinistro
 			SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
 			
@@ -65,7 +81,10 @@ public class AppMain {
 			
 			// Adicionar os veiculos aos clientes
 			c1.adicionaVeiculo(carro1C1);
+<<<<<<< HEAD
 			c1.adicionaVeiculo(carro2C1);
+=======
+>>>>>>> working
 			c2.adicionaVeiculo(carro1C2);
 			c3.adicionaVeiculo(carro1C3);
 			c3.adicionaVeiculo(carro2C3);
@@ -81,7 +100,11 @@ public class AppMain {
 			seg1.cadastrarCliente(c3);
 			seg1.cadastrarCliente(c4);
 			
+<<<<<<< HEAD
 			// Adiciona sinistros
+=======
+			// Adiciona sinistros (Pelo metodo adicionaSinistros e pelo gerarSinistros)
+>>>>>>> working
 			Sinistro s1 = new Sinistro(dataS1, "Campo Grande", seg1,carro1C1, c1);
 			seg1.adicionaSinistros(s1);
 			seg1.gerarSinistro(dataS2, "Brasília", seg1,carro2C3, c3);
@@ -95,10 +118,29 @@ public class AppMain {
 			seg1.visualizarSinistro(100000);
 			System.out.println("--------------------------------------------------------------------------\n");
 			System.out.println(seg1.listarSinistros("Fio a Fio"));
+<<<<<<< HEAD
+=======
+			
+			/* O preco do seguro ja e' atualizado automaticamente pelo cadastro do cliente
+			*  Colocarei para imprimir para ver que automaticamente ja foi, adicionarei um carro e atualizarei o seguro
+			*/
+			
+			System.out.println("--------------------------------------------------------------------------\n");
+			System.out.println("Seguro Inicial do cliente1: R$"+ seg1.calcularPrecoSeguroCliente(c1));
+			c1.adicionaVeiculo(carro2C1);
+			System.out.println("Atualizando o seguro do cliente1: R$"+ seg1.calcularPrecoSeguroCliente(c1));
+			System.out.println("--------------------------------------------------------------------------\n");
+			// Imprimindo todos os seguros 
+			System.out.println("Seguro Cliente2 : R$" + seg1.calcularPrecoSeguroCliente(c2));
+			System.out.println("Seguro Cliente3 : R$" + seg1.calcularPrecoSeguroCliente(c3));
+			System.out.println("Seguro Cliente4 : R$" + seg1.calcularPrecoSeguroCliente(c4));
+			
+>>>>>>> working
 			System.out.println("--------------------------------------------------------------------------\n");
 			System.out.println("Receita da Seguradora: R$" + seg1.calcularReceita());
 			System.out.println("\n--------------------------------------------------------------------------\n");
 			
+<<<<<<< HEAD
 			// Menu de Operações
 			int opcao = 0;
 			int opcao1 = 0;
@@ -185,3 +227,31 @@ public class AppMain {
 	}
 
 }
+=======
+			
+			
+			// Adicionando alguns dos Clientes, Seguradoras, Sinistros e Veiculos acima para ter listas a serem exibidas no Menu Operacoes
+			listaClientesTotal.add(c1);
+			listaClientesTotal.add(c2);
+			listaClientesTotal.add(c3);
+			listaClientesTotal.add(c4);
+			listaSeguradoraTotal.add(seg1);
+			listaSinistroTotal.add(s1);
+			Sinistro s2 = new Sinistro(dataS2, "Brasília", seg1,carro2C3, c3);
+			Sinistro s3 = new Sinistro(dataS3, "Campinas-SP", seg1,carro1C1, c1);
+			Sinistro s4 = new Sinistro(dataS4, "SP", seg1,carro1C2, c1);
+			listaSinistroTotal.add(s2);
+			listaSinistroTotal.add(s3);
+			listaSinistroTotal.add(s4);
+			listaVeiculoTotal.add(carro1C4);
+			listaVeiculoTotal.add(carro1C1);
+			listaVeiculoTotal.add(carro2C1);
+			listaVeiculoTotal.add(carro1C2);
+			listaVeiculoTotal.add(carro1C3);
+			
+			// Menu de Operacoes
+			Menu.menuOperacoes(listaClientesTotal, listaSeguradoraTotal,listaSinistroTotal ,listaVeiculoTotal);
+
+			
+	}}
+>>>>>>> working

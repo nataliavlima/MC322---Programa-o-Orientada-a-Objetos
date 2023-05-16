@@ -1,5 +1,9 @@
 package lab4;
 import java.text.ParseException;
+<<<<<<< HEAD
+=======
+import java.util.ArrayList;
+>>>>>>> working
 import java.util.Date;
 import java.util.List;
 
@@ -10,7 +14,11 @@ public class ClientePJ extends Cliente {
  private Date dataFundacao ;
  private int qtdFuncionarios;
 
+<<<<<<< HEAD
  public ClientePJ ( String nome , String endereco , List < Veiculo > listaVeiculos , String cnpj , Date dataFundacao, int qtdFuncionarios ) {
+=======
+ public ClientePJ ( String nome , String endereco , ArrayList < Veiculo > listaVeiculos , String cnpj , Date dataFundacao, int qtdFuncionarios ) {
+>>>>>>> working
 	 
  // chama o construtor da superclasse
  
