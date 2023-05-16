@@ -4,19 +4,13 @@ import java.util.ArrayList;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-<<<<<<< HEAD
-=======
 import java.util.List;
->>>>>>> working
 import java.util.Scanner;
 
 
 
 
 public class AppMain {
-<<<<<<< HEAD
-	public static void main(String[] args) throws ParseException {
-=======
 	
 	
 	public static void main(String[] args) throws ParseException {
@@ -26,7 +20,6 @@ public class AppMain {
 		List<Sinistro> listaSinistroTotal = new ArrayList<Sinistro>();
 		ArrayList<Veiculo> listaVeiculoTotal = new ArrayList<Veiculo>();
 		
->>>>>>> working
 		// Declaracao das Datas no formato dd/MM/yyyy que serao usadas nos clientes e sinistro
 			SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
 			
@@ -81,10 +74,6 @@ public class AppMain {
 			
 			// Adicionar os veiculos aos clientes
 			c1.adicionaVeiculo(carro1C1);
-<<<<<<< HEAD
-			c1.adicionaVeiculo(carro2C1);
-=======
->>>>>>> working
 			c2.adicionaVeiculo(carro1C2);
 			c3.adicionaVeiculo(carro1C3);
 			c3.adicionaVeiculo(carro2C3);
@@ -100,11 +89,7 @@ public class AppMain {
 			seg1.cadastrarCliente(c3);
 			seg1.cadastrarCliente(c4);
 			
-<<<<<<< HEAD
-			// Adiciona sinistros
-=======
 			// Adiciona sinistros (Pelo metodo adicionaSinistros e pelo gerarSinistros)
->>>>>>> working
 			Sinistro s1 = new Sinistro(dataS1, "Campo Grande", seg1,carro1C1, c1);
 			seg1.adicionaSinistros(s1);
 			seg1.gerarSinistro(dataS2, "Brasília", seg1,carro2C3, c3);
@@ -118,8 +103,6 @@ public class AppMain {
 			seg1.visualizarSinistro(100000);
 			System.out.println("--------------------------------------------------------------------------\n");
 			System.out.println(seg1.listarSinistros("Fio a Fio"));
-<<<<<<< HEAD
-=======
 			
 			/* O preco do seguro ja e' atualizado automaticamente pelo cadastro do cliente
 			*  Colocarei para imprimir para ver que automaticamente ja foi, adicionarei um carro e atualizarei o seguro
@@ -135,99 +118,10 @@ public class AppMain {
 			System.out.println("Seguro Cliente3 : R$" + seg1.calcularPrecoSeguroCliente(c3));
 			System.out.println("Seguro Cliente4 : R$" + seg1.calcularPrecoSeguroCliente(c4));
 			
->>>>>>> working
 			System.out.println("--------------------------------------------------------------------------\n");
 			System.out.println("Receita da Seguradora: R$" + seg1.calcularReceita());
 			System.out.println("\n--------------------------------------------------------------------------\n");
 			
-<<<<<<< HEAD
-			// Menu de Operações
-			int opcao = 0;
-			int opcao1 = 0;
-			try (Scanner usuario = new Scanner(System.in)) {
-				String tipoCliente;
-				int id;
-				String nomeCliente;
-				
-				do { 
-				// Menu para Cadastro
-					System.out.println("------------------------------------------------------------------");
-					System.out.println("Digite... ");
-					System.out.println("1: Para CADASTROS ");
-					System.out.println("2: Para LISTAR");
-					System.out.println("3: Para EXCLUIR");
-					System.out.println("4: Para GERAR SINISTRO");
-					System.out.println("5: Para TRANSFERIR SEGURO");  // Sinistro
-					System.out.println("6: Para CALCULAR RECEITA SEGURADORA");
-					System.out.println("7: Para SAIR");
-					System.out.println("------------------------------------------------------------------");
-					System.out.println("\n");
-				
-				// Selecao do usuario
-					System.out.println("Opção selecionada: ");
-					opcao = usuario.nextInt();
-					usuario.nextLine();// limpa o scanner
-					
-					if (opcao == MenuOperacoes.CADASTRAR.operacao) { // listar Clientes cadastrados
-							System.out.println("Digite o tipo de cliente que deseja listar [1] Pessoa Física ou [2] Pessoa Jurídica: ");
-							tipoCliente = usuario.nextLine();
-							System.out.println(seg1.listarClientes(tipoCliente));
-							break;
-					} else if(opcao == MenuOperacoes.LISTAR.operacao) {
-						
-						break;		
-					} else if(opcao == MenuOperacoes.EXCLUIR.operacao) {
-						
-						break;
-					} else if(opcao == MenuOperacoes.GERAR_SINISTRO.operacao) {
-						
-						break;
-					} else if(opcao == MenuOperacoes.TRANSFERIR_SEGURO.operacao) {
-						
-						break;
-					} else if(opcao == MenuOperacoes.CALCULAR_RECEITA.operacao) {
-						
-						break;
-					} else if(opcao == MenuOperacoes.SAIR.operacao) {
-						break;
-					}
-										
-					/*	
-						case 2: // visualizar Sinistro pelo ID
-							System.out.println("Digite a ID do Sinistro desejado (ID >= 100000): ");
-							id = usuario.nextInt();
-							seg1.visualizarSinistro(id);		
-							break;
-							
-							
-						case 3: // listar todos os Sinistros do cliente
-							System.out.println("Digite o nome do cliente que deseja listar os sinistros: ");
-							nomeCliente = usuario.nextLine();
-							System.out.println(seg1.listarSinistros(nomeCliente));
-							break;
-							
-						case 4: // listar todos os clientes cadastrados
-							System.out.println(seg1.getListaClientes());
-							break;
-							
-						case 5: // listar todos os sinistros cadastrados
-							System.out.println(seg1.getListaSinistros());
-						
-						case 6:
-							break;
-						}*/
-					}while(opcao != 6);
-					
-				}
-
-			
-			
-	
-
-	}
-
-}
-=======
 			
 			
 			// Adicionando alguns dos Clientes, Seguradoras, Sinistros e Veiculos acima para ter listas a serem exibidas no Menu Operacoes
@@ -254,4 +148,3 @@ public class AppMain {
 
 			
 	}}
->>>>>>> working
