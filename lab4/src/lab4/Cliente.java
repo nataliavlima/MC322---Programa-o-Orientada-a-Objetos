@@ -47,6 +47,9 @@ public class Cliente {
 	public ArrayList<Veiculo> getListaVeiculo(){
 		return listaVeiculos;
 		}
+	public void setListaVeiculo(ArrayList<Veiculo> listaVeiculos) {
+		this.listaVeiculos = listaVeiculos;
+	}
 	public void adicionaVeiculo(Veiculo veiculo) {
 		this.listaVeiculos.add(veiculo);
 	}
