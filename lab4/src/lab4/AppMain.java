@@ -74,7 +74,6 @@ public class AppMain {
 			
 			// Adicionar os veiculos aos clientes
 			c1.adicionaVeiculo(carro1C1);
-			c1.adicionaVeiculo(carro2C1);
 			c2.adicionaVeiculo(carro1C2);
 			c3.adicionaVeiculo(carro1C3);
 			c3.adicionaVeiculo(carro2C3);
@@ -90,7 +89,7 @@ public class AppMain {
 			seg1.cadastrarCliente(c3);
 			seg1.cadastrarCliente(c4);
 			
-			// Adiciona sinistros
+			// Adiciona sinistros (Pelo metodo adicionaSinistros e pelo gerarSinistros)
 			Sinistro s1 = new Sinistro(dataS1, "Campo Grande", seg1,carro1C1, c1);
 			seg1.adicionaSinistros(s1);
 			seg1.gerarSinistro(dataS2, "Brasília", seg1,carro2C3, c3);
@@ -104,9 +103,26 @@ public class AppMain {
 			seg1.visualizarSinistro(100000);
 			System.out.println("--------------------------------------------------------------------------\n");
 			System.out.println(seg1.listarSinistros("Fio a Fio"));
+			
+			/* O preco do seguro ja e' atualizado automaticamente pelo cadastro do cliente
+			*  Colocarei para imprimir para ver que automaticamente ja foi, adicionarei um carro e atualizarei o seguro
+			*/
+			
+			System.out.println("--------------------------------------------------------------------------\n");
+			System.out.println("Seguro Inicial do cliente1: R$"+ seg1.calcularPrecoSeguroCliente(c1));
+			c1.adicionaVeiculo(carro2C1);
+			System.out.println("Atualizando o seguro do cliente1: R$"+ seg1.calcularPrecoSeguroCliente(c1));
+			System.out.println("--------------------------------------------------------------------------\n");
+			// Imprimindo todos os seguros 
+			System.out.println("Seguro Cliente2 : R$" + seg1.calcularPrecoSeguroCliente(c2));
+			System.out.println("Seguro Cliente3 : R$" + seg1.calcularPrecoSeguroCliente(c3));
+			System.out.println("Seguro Cliente4 : R$" + seg1.calcularPrecoSeguroCliente(c4));
+			
 			System.out.println("--------------------------------------------------------------------------\n");
 			System.out.println("Receita da Seguradora: R$" + seg1.calcularReceita());
 			System.out.println("\n--------------------------------------------------------------------------\n");
+			
+			
 			
 			// Adicionando alguns dos Clientes, Seguradoras, Sinistros e Veiculos acima para ter listas a serem exibidas no Menu Operacoes
 			listaClientesTotal.add(c1);
@@ -128,7 +144,6 @@ public class AppMain {
 			listaVeiculoTotal.add(carro1C3);
 			
 			// Menu de Operacoes
-			//Scanner usuario = new Scanner(System.in);
 			Menu.menuOperacoes(listaClientesTotal, listaSeguradoraTotal,listaSinistroTotal ,listaVeiculoTotal);
 
 			

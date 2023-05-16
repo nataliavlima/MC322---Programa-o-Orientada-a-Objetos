@@ -7,9 +7,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
-/* ERROS:
- * 16:33 - calcular seguro depois de ajustar a transferencia
- */
 
 public class Menu {
 	public static List<Cliente> fazer_cadastro_cliente(List<Cliente> listaClientesTotal) throws ParseException{
@@ -45,7 +42,7 @@ public class Menu {
 			endereco = usuario.nextLine();
 			
 			System.out.println("Vamos cadastrar o(s) veiculo(s) do cliente: ");
-			listaVeiculo = fazer_cadastro_veiculo(listaVeiculoInicial); 
+			listaVeiculo.add(fazer_cadastro_veiculo(listaVeiculoInicial)); 
 			
 			System.out.println("Digite o CPF do cliente: ");
 			cpfCliente = usuario.nextLine();
@@ -81,16 +78,16 @@ public class Menu {
 			endereco = usuario.nextLine();
 			
 			System.out.println("Vamos cadastrar o(s) veiculo(s) do cliente: ");
-			listaVeiculo = fazer_cadastro_veiculo(listaVeiculo); 
+			listaVeiculo.add(fazer_cadastro_veiculo(listaVeiculo)); 
 			
-			System.out.println("Digite o CPF do cliente: ");
+			System.out.println("Digite o CNPJ do cliente: ");
 			cnpj = usuario.nextLine();
 			
-			System.out.println("Digite a data de nascimento do cliente: ");
+			System.out.println("Digite a data de fundação do cliente: ");
 			dataFundacaoString = usuario.nextLine();
 			Date dataFundacao = formato.parse(dataFundacaoString);
 			
-			System.out.println("Digite a escolaridade do cliente: ");
+			System.out.println("Digite a quantidade de funcionários do cliente: ");
 			qtdFuncionarios = usuario.nextInt();
 			usuario.nextLine();// limpa o scanner
 			
@@ -102,7 +99,7 @@ public class Menu {
 		
 		return listaClientesTotal;
 	}
-	public static ArrayList<Veiculo> fazer_cadastro_veiculo(ArrayList<Veiculo> listaVeiculoTotal) {
+	public static Veiculo fazer_cadastro_veiculo(ArrayList<Veiculo> listaVeiculoTotal) {
 		String placa; 
 		String marca;
 		String modelo;
@@ -128,7 +125,7 @@ public class Menu {
 		System.out.println("\nDados cadastrados do veículo: \n");
 		System.out.println(v1.toString());
 		
-		return listaVeiculoTotal;
+		return v1;
 	}
 	
 	
@@ -381,7 +378,7 @@ public class Menu {
 			listaClientesTotal = fazer_cadastro_cliente(listaClientesTotal);
 			break;
 		} else if(opcao1.equals(Operacoes.CADASTRAR_VEICULO.operacao)) {
-			listaVeiculoTotal = fazer_cadastro_veiculo(listaVeiculoTotal);
+			Veiculo veiculo = fazer_cadastro_veiculo(listaVeiculoTotal);
 			break;
 		} else if(opcao1.equals(Operacoes.CADASTRAR_SEGURADORA.operacao)) {
 			listaSeguradoraTotal = fazer_cadastro_seguradora(listaSeguradoraTotal);
@@ -559,7 +556,7 @@ public class Menu {
 		
 	}
 	
-	public static List<Cliente> transferir_seguro(List<Cliente> listaClientesTotal, List<Seguradora> listaSeguradoraTotal, List<Sinistro> listaSinistroTotal,ArrayList<Veiculo> listaVeiculoTotal) throws ParseException {
+	public static void transferir_seguro(List<Cliente> listaClientesTotal, List<Seguradora> listaSeguradoraTotal, List<Sinistro> listaSinistroTotal,ArrayList<Veiculo> listaVeiculoTotal) throws ParseException {
 		Scanner usuario = new Scanner(System.in);
 		
 		System.out.println("Digite o número do cliente que irá retirar os veículos para transferir o seguro:\n");
@@ -582,13 +579,7 @@ public class Menu {
 		Cliente cliente1 = listaClientesTotal.get(clienteN1);
 		Cliente cliente2 = listaClientesTotal.get(clienteN2);
 		
-		// Calcula os seguros inicialmente
-		/*double seguro1 = calcula_seguro(cliente1, listaSinistroTotal);
-		double seguro2 = calcula_seguro(cliente2, listaSinistroTotal);
 		
-		System.out.println("O valor do seguro inicial de " + cliente1.getNome() + " era de R$ " + seguro1 );
-		System.out.println("O valor do seguro inicial de " + cliente2.getNome() + " era de R$ " + seguro2 + "\n");
-		*/
 		// Modifica os veiculos
 		listaVeiculoTransferida = cliente1.getListaVeiculo();
 		cliente1.setListaVeiculo(listaVeiculoVazia);	// retira os carros do cliente1
@@ -605,11 +596,7 @@ public class Menu {
 		System.out.println("Veículos atuais de " +cliente2.getNome() +":" + cliente2.getListaVeiculo());
 		System.out.println("A lista de veículos de " +cliente1.getNome() + " foi esvaziada");
 		
-		List<Cliente> clientesSelecionados = new ArrayList<Cliente>();
-		clientesSelecionados.add(cliente1);
-		clientesSelecionados.add(cliente2);
 		
-		return clientesSelecionados;
 	}
 	
 	public static void menuOperacoes(List<Cliente> listaClientesTotal, List<Seguradora> listaSeguradoraTotal, List<Sinistro> listaSinistroTotal,	ArrayList<Veiculo> listaVeiculoTotal) throws ParseException {
@@ -655,14 +642,7 @@ public class Menu {
 					listaSinistroTotal = gerar_sinistro(listaClientesTotal, listaSeguradoraTotal, listaSinistroTotal,listaVeiculoTotal);
 					break;
 				} else if(opcao == MenuOperacoes.TRANSFERIR_SEGURO.operacao) {
-					List<Cliente> clientesSelecionados = new ArrayList<Cliente>();
-					clientesSelecionados = transferir_seguro(listaClientesTotal, listaSeguradoraTotal, listaSinistroTotal,listaVeiculoTotal);
-					
-					// recalcula os valores dos seguros
-					System.out.println("-------------------------------------");
-					System.out.println(calcula_seguro(clientesSelecionados.get(0), listaSinistroTotal));
-					System.out.println(calcula_seguro(clientesSelecionados.get(1), listaSinistroTotal));
-					//seguro2 = calcula_seguro(cliente2, listaSinistroTotal);	
+					transferir_seguro(listaClientesTotal, listaSeguradoraTotal, listaSinistroTotal,listaVeiculoTotal);
 					
 					break;
 				} else if(opcao == MenuOperacoes.CALCULAR_RECEITA.operacao) {
