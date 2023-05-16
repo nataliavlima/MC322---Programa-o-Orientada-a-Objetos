@@ -1,18 +1,18 @@
 package lab4;
 
 public enum Cadastrar {
-	CADASTRAR_CLIENTE(1),
-	CADASTRAR_VEICULO(2),
-	CADASTRAR_SEGURADORA(3),
-	VOLTAR(4);
+	CADASTRAR_CLIENTE("Cadastrar cliente"),
+	CADASTRAR_VEICULO("Cadastrar veiculo"),
+	CADASTRAR_SEGURADORA("Cadastrar seguradora"),
+	VOLTAR("Voltar");
 	
-	public final int operacao;
+	public final String operacao;
 	
-	Cadastrar(int operacao){
+	Cadastrar(String operacao){
 		this.operacao = operacao;
 	}
 	
-	public int getOperacao() {
+	public String getOperacao() {
 		return this.operacao;
 	}
 }

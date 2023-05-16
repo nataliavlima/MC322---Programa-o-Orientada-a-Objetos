@@ -1,4 +1,5 @@
 package lab4;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -15,7 +16,7 @@ public class ClientePF extends Cliente {
  private String genero;
  private String classeEconomica;
 
- public ClientePF ( String nome , String endereco,  List < Veiculo > listaVeiculos , String cpf , Date dataNascimento , Date dataLicenca , String educacao , String genero , String classeEconomica ) {
+ public ClientePF ( String nome , String endereco,  ArrayList < Veiculo > listaVeiculos , String cpf , Date dataNascimento , Date dataLicenca , String educacao , String genero , String classeEconomica ) {
 	 
  // chama o construtor da superclasse
  super ( nome , endereco ,  listaVeiculos  );

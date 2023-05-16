@@ -1,18 +1,18 @@
 package lab4;
 
 public enum Excluir {
-	EXCLUIR_CLIENTE(1),
-	EXCLUIR_VEICULO(2),
-	EXCLUIR_SINISTRO(3),
-	VOLTAR(4);
+	EXCLUIR_CLIENTE("Excluir cliente"),
+	EXCLUIR_VEICULO("Excluir veículo"),
+	EXCLUIR_SINISTRO("Excluir sinistro"),
+	VOLTAR("Voltar");
 	
-	public final int operacao;
+	public final String operacao;
 	
-	Excluir(int operacao){
+	Excluir(String operacao){
 		this.operacao = operacao;
 	}
 	
-	public int getOperacao() {
+	public String getOperacao() {
 		return this.operacao;
 	}
 }

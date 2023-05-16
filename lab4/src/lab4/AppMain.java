@@ -4,13 +4,22 @@ import java.util.ArrayList;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Scanner;
 
 
 
 
 public class AppMain {
+	
+	
 	public static void main(String[] args) throws ParseException {
+		// Listas a serem utilizadas para armazenar todo mundo cadastrado
+		List<Cliente> listaClientesTotal = new ArrayList<Cliente>();
+		List<Seguradora> listaSeguradoraTotal = new ArrayList<Seguradora>();
+		List<Sinistro> listaSinistroTotal = new ArrayList<Sinistro>();
+		ArrayList<Veiculo> listaVeiculoTotal = new ArrayList<Veiculo>();
+		
 		// Declaracao das Datas no formato dd/MM/yyyy que serao usadas nos clientes e sinistro
 			SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
 			
@@ -99,89 +108,28 @@ public class AppMain {
 			System.out.println("Receita da Seguradora: R$" + seg1.calcularReceita());
 			System.out.println("\n--------------------------------------------------------------------------\n");
 			
-			// Menu de Operações
-			int opcao = 0;
-			int opcao1 = 0;
-			try (Scanner usuario = new Scanner(System.in)) {
-				String tipoCliente;
-				int id;
-				String nomeCliente;
-				
-				do { 
-				// Menu para Cadastro
-					System.out.println("------------------------------------------------------------------");
-					System.out.println("Digite... ");
-					System.out.println("1: Para CADASTROS ");
-					System.out.println("2: Para LISTAR");
-					System.out.println("3: Para EXCLUIR");
-					System.out.println("4: Para GERAR SINISTRO");
-					System.out.println("5: Para TRANSFERIR SEGURO");  // Sinistro
-					System.out.println("6: Para CALCULAR RECEITA SEGURADORA");
-					System.out.println("7: Para SAIR");
-					System.out.println("------------------------------------------------------------------");
-					System.out.println("\n");
-				
-				// Selecao do usuario
-					System.out.println("Opção selecionada: ");
-					opcao = usuario.nextInt();
-					usuario.nextLine();// limpa o scanner
-					
-					if (opcao == MenuOperacoes.CADASTRAR.operacao) { // listar Clientes cadastrados
-							System.out.println("Digite o tipo de cliente que deseja listar [1] Pessoa Física ou [2] Pessoa Jurídica:  ");
-							tipoCliente = usuario.nextLine();
-							System.out.println(seg1.listarClientes(tipoCliente));
-							break;
-					} else if(opcao == MenuOperacoes.LISTAR.operacao) {
-						
-						break;		
-					} else if(opcao == MenuOperacoes.EXCLUIR.operacao) {
-						
-						break;
-					} else if(opcao == MenuOperacoes.GERAR_SINISTRO.operacao) {
-						
-						break;
-					} else if(opcao == MenuOperacoes.TRANSFERIR_SEGURO.operacao) {
-						
-						break;
-					} else if(opcao == MenuOperacoes.CALCULAR_RECEITA.operacao) {
-						
-						break;
-					} else if(opcao == MenuOperacoes.SAIR.operacao) {
-						break;
-					}
-										
-					/*	
-						case 2: // visualizar Sinistro pelo ID
-							System.out.println("Digite a ID do Sinistro desejado (ID >= 100000): ");
-							id = usuario.nextInt();
-							seg1.visualizarSinistro(id);		
-							break;
-							
-							
-						case 3: // listar todos os Sinistros do cliente
-							System.out.println("Digite o nome do cliente que deseja listar os sinistros: ");
-							nomeCliente = usuario.nextLine();
-							System.out.println(seg1.listarSinistros(nomeCliente));
-							break;
-							
-						case 4: // listar todos os clientes cadastrados
-							System.out.println(seg1.getListaClientes());
-							break;
-							
-						case 5: // listar todos os sinistros cadastrados
-							System.out.println(seg1.getListaSinistros());
-						
-						case 6:
-							break;
-						}*/
-					}while(opcao != 6);
-					
-				}
+			// Adicionando alguns dos Clientes, Seguradoras, Sinistros e Veiculos acima para ter listas a serem exibidas no Menu Operacoes
+			listaClientesTotal.add(c1);
+			listaClientesTotal.add(c2);
+			listaClientesTotal.add(c3);
+			listaClientesTotal.add(c4);
+			listaSeguradoraTotal.add(seg1);
+			listaSinistroTotal.add(s1);
+			Sinistro s2 = new Sinistro(dataS2, "Brasília", seg1,carro2C3, c3);
+			Sinistro s3 = new Sinistro(dataS3, "Campinas-SP", seg1,carro1C1, c1);
+			Sinistro s4 = new Sinistro(dataS4, "SP", seg1,carro1C2, c1);
+			listaSinistroTotal.add(s2);
+			listaSinistroTotal.add(s3);
+			listaSinistroTotal.add(s4);
+			listaVeiculoTotal.add(carro1C4);
+			listaVeiculoTotal.add(carro1C1);
+			listaVeiculoTotal.add(carro2C1);
+			listaVeiculoTotal.add(carro1C2);
+			listaVeiculoTotal.add(carro1C3);
+			
+			// Menu de Operacoes
+			//Scanner usuario = new Scanner(System.in);
+			Menu.menuOperacoes(listaClientesTotal, listaSeguradoraTotal,listaSinistroTotal ,listaVeiculoTotal);
 
 			
-			
-	
-
-	}
-
-}
+	}}

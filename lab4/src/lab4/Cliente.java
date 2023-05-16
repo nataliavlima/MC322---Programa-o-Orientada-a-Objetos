@@ -8,10 +8,10 @@ public class Cliente {
 	protected String endereco;
 	protected double valorSeguro = 0;
 
-	protected List < Veiculo > listaVeiculos = new ArrayList<Veiculo>();
+	protected ArrayList < Veiculo > listaVeiculos = new ArrayList<Veiculo>();
 
 	// Construtor
-	 	public Cliente (String nome , String endereco, List<Veiculo>listaVeiculos ) {
+	 	public Cliente (String nome , String endereco, ArrayList<Veiculo>listaVeiculos ) {
 		 this.nome = nome;
 		 this.endereco = endereco;
 		 this.valorSeguro = valorSeguro;
@@ -44,7 +44,7 @@ public class Cliente {
 		 return valorSeguro;
 	 	}
 	 
-	public List<Veiculo> getListaVeiculo(){
+	public ArrayList<Veiculo> getListaVeiculo(){
 		return listaVeiculos;
 		}
 	public void adicionaVeiculo(Veiculo veiculo) {
