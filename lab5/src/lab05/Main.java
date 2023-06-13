@@ -131,7 +131,7 @@ public class Main {
 			seg2.cadastrarCliente(c3);
 			seg2.cadastrarCliente(c4);
 		
-		// ------------------------------------------------------------------------------------
+		// --------------------------------------------------------------------------------------
 		
 		// toString de 1 objeto de cada classe
 		System.out.println("Imprimindo o toString de cada classe (1 exemplo cada): \n");
