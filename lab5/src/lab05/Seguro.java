@@ -18,18 +18,18 @@ public abstract class Seguro {
 		// Construtor
 		public Seguro(Date dataInicio, Date dataFim,Seguradora seguradora) {
 			num++;
-			
+			this.id = num;
 			this.dataInicio = dataInicio;
 			this.dataFim = dataFim;
 			this.seguradora = seguradora;
 			this.listaSinistros = new ArrayList<Sinistro>();
 			this.listaCondutores = new ArrayList<Condutor>();
 			this.valorMensal = 0.0;
-			this.id = num;
 		}
 
 			
 		// Getters e setters
+		
 		
 		public int getNum() {
 			return num;
@@ -41,6 +41,7 @@ public abstract class Seguro {
 		public void setNum(int num) { // atualiza a variavel estatica que atualiza o id
 			Seguro.num = num;
 		}
+		
 		
 		public Date getDataInicio() {
 			return dataInicio;

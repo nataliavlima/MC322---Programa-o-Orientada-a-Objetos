@@ -54,7 +54,7 @@ public abstract class Cliente {
 		@Override
 		public String toString () {
 			return  " Nome: " + this.nome + 
-					"\n Telefon: " + this.telefone+ 
+					"\n Telefone: " + this.telefone+ 
 					"\n Endereço: " + this.endereco +
 					"\n Email: " + this.email + 
 					"\n";

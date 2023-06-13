@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+
 public class Seguradora {
      private final String cnpj;
 	 private String nome;
@@ -13,6 +14,7 @@ public class Seguradora {
 	 private String endereco;
 	 private ArrayList <Seguro> listaSeguros = new ArrayList<Seguro>();
 	 private ArrayList <Cliente> listaClientes = new ArrayList<Cliente>();
+	 private List < Sinistro > listaSinistros = new ArrayList<Sinistro>();
 
 	 // Construtor
 	 public Seguradora(String cnpj, String nome , String telefone , String email , String endereco ) {
@@ -23,6 +25,7 @@ public class Seguradora {
 		 this.endereco = endereco;
 		 this.listaSeguros = new ArrayList<Seguro>();
 		 this.listaClientes = new ArrayList<Cliente>();
+		 this.listaSinistros = new ArrayList<Sinistro>();
 	 	}
 
 	 // Getters e setters
@@ -77,7 +80,12 @@ public class Seguradora {
 		this.listaClientes.add(cliente);
 	}
 	
-	
+	 public List < Sinistro > getListaSinistros(){
+			return listaSinistros;
+			}
+	public void adicionaSinistros(Sinistro sinistro) {
+		this.listaSinistros.add(sinistro);
+	}
 	
 	// Verifica se o cliente ja foi cadastrado antes, se nao foi ele adiciona novo
 	public boolean cadastrarCliente(Cliente cliente1) throws ParseException {
@@ -106,7 +114,7 @@ public class Seguradora {
 			return false;
 		} else if(verifica == 1) {
 			listaClientes.add(cliente1);
-			System.out.println("Cliente cadastrado com sucesso! \n");
+			//System.out.println("Cliente cadastrado com sucesso! \n");
 			return true;
 		}
 		return false;
@@ -184,50 +192,42 @@ public class Seguradora {
 	
 	
 	// Gerar seguro para PJ
-	public boolean gerarSeguro(Date dataInicio, Date dataFim,Seguradora seguradora,  Frota frota, ClientePJ cliente) {
+	public boolean gerarSeguro(Date dataInicio, Date dataFim,  Frota frota, ClientePJ cliente) {
 		SeguroPJ seguro = new SeguroPJ(dataInicio,dataFim,this, frota, cliente);
 		  
-	// Verifica se ja nao foi cadastrado antes 
-		 if(listaSeguros.size() == 0) {  // se nao tiver nenhum seguro registrado (lista vazia) ele adiciona
-			 adicionaSeguro(seguro);	
-			 System.out.println("Seguro adicionado!\n");
-		 }
-		 for(Seguro s1  : listaSeguros) { 	// percorre a lista de seguro inteira
-			 
-			 if(s1.getId() == seguro.getId()) {	// ve se esse seguro ja foi registrado antes(id unico!)
-				 System.out.println("Seguro já registrado!\n");
-				 return false;
-			 }else if(s1.getId() != seguro.getId()) {
-			     adicionaSeguro(s1);		// se registro for novo, ele e' adicionado
+	
+			// Verifica se ja nao foi cadastrado antes 
+			 if(listaSeguros.size() == 0) {  
+				 adicionaSeguro(seguro);	
 				 System.out.println("Seguro adicionado!\n");
+			 }else if(this.listaSeguros.contains(seguro)){
+					 return false;
+				 }
+			 else {
+				 adicionaSeguro(seguro);
 				 return true;
-			 } 
+				 }
 		 
-		 }
 		 
 		return false;
 	}
 	
 	// Gerar seguro para PF
-		public boolean gerarSeguro(Date dataInicio, Date dataFim,Seguradora seguradora, Veiculo veiculo, ClientePF cliente) {
-			SeguroPF seguro = new SeguroPF(dataInicio,dataFim,this, veiculo, cliente);
+		public boolean gerarSeguro( Date dataInicio,Date dataFim, Veiculo veiculo, ClientePF cliente) {
+			SeguroPF seguro = new SeguroPF( dataInicio,dataFim,this, veiculo, cliente);
 			  
 		// Verifica se ja nao foi cadastrado antes 
 			 if(listaSeguros.size() == 0) {  
 				 adicionaSeguro(seguro);	
 				 System.out.println("Seguro adicionado!\n");
-			 }
-			 for(Seguro s1  : listaSeguros) { 	
-				 if(s1.getId() == seguro.getId()) {	
-					 System.out.println("Seguro já registrado!\n");
+			 }else if(this.listaSeguros.contains(seguro)){
 					 return false;
-				 }else if(s1.getId() != seguro.getId()) {
-				     adicionaSeguro(s1);		
-				     System.out.println("Seguro adicionado!\n");
-					 return true;
-				 } 
-			 
-			 }
+				 }
+			 else {
+				 adicionaSeguro(seguro);
+				 return true;
+				 }
+				
 			 
 			return false;
 		}
@@ -291,7 +291,23 @@ public class Seguradora {
 	 	return false;
 	 }
 	 
-	 
+	// Vai listar todas as ocorrencias de sinistros de um cliente
+		 public List < Sinistro > listarSinistros(String nomeCliente){
+		 List < Sinistro > listaSinistrosCondutor = new ArrayList<Sinistro>();
+		 	
+		 	for(Sinistro sinistro : getListaSinistros()) {
+		 		String nomeCondutorSinistro = sinistro.getCondutor().getNome();
+		 		
+		 		if(nomeCondutorSinistro.equals(nomeCliente)) {
+		 			listaSinistrosCondutor.add(sinistro);  // adiciona todos os sinistros com o nome do cliente nessa lista nova
+		 		}
+		 		else if(listaSinistros.size() == 0) {  // se nao tiver nenhum sinistro registrado (lista vazia) ele adiciona	
+		 			 System.out.println("Sem registro de sinistros para esse cliente!\n");
+		 		 }
+		 	}
+		 	return listaSinistrosCondutor; // retorna a lista nova
+		 }
+		 
 	 public double calcularReceita() {
 		 double receita = 0.0;
 		 for(Seguro seguro : listaSeguros)
@@ -300,7 +316,7 @@ public class Seguradora {
 	 }
 	 
 	 // Vai listar todas as ocorrencias de sinistros de um cliente
-	 public ArrayList < Sinistro > listarSinistros(String nomeCliente){
+	 public ArrayList < Sinistro >getSinistrosPorCliente(String nomeCliente){
 		 ArrayList < Sinistro > listaSinistrosCliente = new ArrayList<Sinistro>();
 		 
 	 	for(Seguro seguro : getListaSeguro()) { // define o seguro um por um
@@ -338,14 +354,15 @@ public class Seguradora {
 	 
 		public String toString () {
 			String saida = "";
-			saida += " \n  Seguradora:" + 
-					  "\n    Cnpj: " + getCnpj() + 
-					  "\n    Nome: " + getNome() + 
-					  "\n    Telefone: " + getTelefone() + 
-					  "\n    Email: " + getEmail() + 
-					  "\n    Endereço:  " + getEndereco()+ 
-					  "\n    Seguros: " + getListaSeguro() + 
-					  "\n    Clientes: " + getListaClientes() + 
+			saida += " \nSeguradora:" + 
+					  "\n Cnpj: " + getCnpj() + 
+					  "\n Nome: " + getNome() + 
+					  "\n Telefone: " + getTelefone() + 
+					  "\n Email: " + getEmail() + 
+					  "\n Endereço:  " + getEndereco()+ 
+					  "\n Seguros: " + getListaSeguro() + 
+					  "\n Clientes: " + getListaClientes() + 
+					  "\n Sinistros: " + getListaSinistros() +
 					  "\n";
 	
 			return saida;

@@ -1,8 +1,7 @@
 package lab05;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
+
 
 
 
@@ -23,24 +22,25 @@ public class ClientePJ extends Cliente {
  }
 
  // get e set CPF e data de fundação
- public  String getCnpj() {
-	 return cnpj;
- 	}
-
- public Date getDataFundacao() {
-	 return dataFundacao;
- 	}
-
- public void setDataFundacao(Date dataFundacao) {
+	public  String getCnpj() {
+		 return cnpj;
+	 	}
+	
+	public Date getDataFundacao() {
+		 return dataFundacao;
+	 	}
+	
+	public void setDataFundacao(Date dataFundacao) {
 	 this.dataFundacao = dataFundacao;
  	}
+	
 	public ArrayList<Frota> getListaFrota(){
 		return listaFrota;
 		}
+	
 	public void setListaFrota(ArrayList<Frota> listaFrota) {
 		this.listaFrota= listaFrota;
 	}
-	
 	
 	public void adicionaFrota(Frota frota) {
 		this.listaFrota.add(frota);
@@ -109,6 +109,37 @@ public class ClientePJ extends Cliente {
 	 	}
 	 	return listaVeiculoFrota ; // retorna a lista nova
 	 }
+	 
+	 // atualiaza frota trocando a Antiga pela Nova
+	 public boolean atualizarFrota(Frota frotaAntiga, Frota frotaNova) {
+		 for(Frota frota1 : listaFrota) {
+			 if(frota1.getCode().equals(frotaAntiga.getCode())){
+				 removerFrota(frotaAntiga); // tira a frota antiga
+				 cadastrarFrota(frotaNova); // adiciona a frota nova na lista
+				 return true;
+			 }
+			 else {
+				 return false;
+			 }
+		 }
+		 return false;
+	 }
+	 
+	 
+	//remove frota 
+	public boolean atualizarFrota(Frota frota) {
+		 for(Frota frota1 : listaFrota) {
+			 if(frota1.getCode().equals(frota.getCode())){
+				 removerFrota(frota);
+				 return true;
+			 }
+			 else {
+				 return false;
+			 }
+		 }
+		 return false;
+		 }
+		
 	
  @Override
  public String toString () {

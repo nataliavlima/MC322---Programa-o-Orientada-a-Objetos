@@ -18,7 +18,7 @@ public class Condutor {
 			
 
 			// Construtor
-			 	public Condutor (String cpf, String nome , String telefone, String endereco, String email, Date dataNasc, ArrayList listaSinistro ) {
+			 	public Condutor (String cpf, String nome , String telefone, String endereco, String email, Date dataNasc ) {
 				 this.nome = nome;
 				 this.endereco = endereco;
 				 this.telefone = telefone;

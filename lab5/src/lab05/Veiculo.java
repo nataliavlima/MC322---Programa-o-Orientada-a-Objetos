@@ -51,10 +51,11 @@ public class Veiculo {
 	
 	 // toString()
 	public String toString () {
-		return  "\n   Placa: " + this.placa + 
-				", Marca: " + this.marca + 
-				" , Modelo: " + this.modelo + 
-				" , Ano de Fabricação: " + this.anoFabricacao ;
+		return  " Placa: " + this.placa + 
+				"\n Marca: " + this.marca + 
+				"\n Modelo: " + this.modelo + 
+				"\n Ano de Fabricação: " + this.anoFabricacao 
+				+ "\n";
 		
 		
 		}
