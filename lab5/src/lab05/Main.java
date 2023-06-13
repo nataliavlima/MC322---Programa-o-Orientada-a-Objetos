@@ -145,7 +145,7 @@ public class Main {
 			System.out.println(seguroPJSeg1.toString()); // Seguro PJ
 			System.out.println(s1.toString()); 			 // Sinistro
 			
-		// ------------------------------------------------------------------------------------
+		// --------------------------------------------------------------------------------------
 			
 		// Listar
 		
