@@ -139,13 +139,20 @@ public class ClientePJ extends Cliente {
 		 }
 		 return false;
 		 }
-		
+	public ArrayList<String> listaCodesFrotas() {
+		ArrayList < String > listaCodesFrotas = new ArrayList<String>();
+	 	
+	 	for(Frota frota : getListaFrota()) {
+	 		listaCodesFrotas.add(frota.getCode());
+	 	}
+	 	return listaCodesFrotas; // retorna a lista nova
+	}
 	
  @Override
  public String toString () {
 	
 		String saida = "";
-		saida += super.toString() + " Cnpj: " + this.cnpj + " \n Data de Fundação: " + this.dataFundacao + "\n Lista de Frotas: " + this.listaFrota + "\n";
+		saida += super.toString() + " Cnpj: " + this.cnpj + " \n Data de Fundação: " + this.dataFundacao + "\n Lista de Frotas (codes): " + listaCodesFrotas() + "\n";
 		return saida;
 		}
  }

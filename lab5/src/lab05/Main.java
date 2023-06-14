@@ -12,10 +12,13 @@ import java.util.List;
 public class Main {
 	public static void main(String[] args) throws ParseException {
 		// Listas a serem utilizadas para armazenar todo mundo cadastrado
-				List<Cliente> listaClientesTotal = new ArrayList<Cliente>();
-				List<Seguradora> listaSeguradoraTotal = new ArrayList<Seguradora>();
-				List<Sinistro> listaSinistroTotal = new ArrayList<Sinistro>();
+				ArrayList<Cliente> listaClientesTotal = new ArrayList<Cliente>();
+				ArrayList<Seguradora> listaSeguradoraTotal = new ArrayList<Seguradora>();
+				ArrayList<Sinistro> listaSinistroTotal = new ArrayList<Sinistro>();
 				ArrayList<Veiculo> listaVeiculoTotal = new ArrayList<Veiculo>();
+				ArrayList<Condutor> listaCondutorTotal = new ArrayList<Condutor>();
+				ArrayList<Seguro> listaSeguroTotal = new ArrayList<Seguro>();
+				ArrayList<Frota> listaFrotaTotal = new ArrayList<Frota>();
 				
 		// ------------------------------------------------------------------------------------
 				
@@ -62,7 +65,13 @@ public class Main {
 			Condutor cond2 = new Condutor("645.322.423-20", "Paula", "(19) 99999-7777", "Itu-SP", "paula@email.com", dataS2);
 			Condutor cond3 = new Condutor("518.225.438-51", "Guilherme", "(19) 99999-6666", "São Carlos-SP", "guilherme@email.com", dataS3);
 			Condutor cond4 = new Condutor("401.637.345-00", "Heloisa", "(19) 99999-5555", "Sorocaba-SP", "heloisa@email.com", dataS4);
-		
+			
+			ArrayList<Condutor> listaCondutor = new ArrayList<Condutor>();
+				listaCondutor.add(cond1);
+				listaCondutor.add(cond2);
+				listaCondutor.add(cond3);
+				listaCondutor.add(cond4);
+			
 		// Veiculo
 			Veiculo carro1C1 = new Veiculo("QAA7811", "Toyota", "Etios", 2016);
 			Veiculo carro2C1 = new Veiculo("CMG3164", "Chevrolet", "Corsa", 2003);
@@ -102,7 +111,15 @@ public class Main {
 			SeguroPJ seguroPJSeg1 = ((SeguroPJ)seg1.getListaSeguro().get(1));
 			SeguroPF seguroPFSeg2 = ((SeguroPF)seg2.getListaSeguro().get(1));
 			SeguroPJ seguroPJSeg2 = ((SeguroPJ)seg2.getListaSeguro().get(0));
-		
+			
+			SeguroPF SeguroPF2Seg1 = new SeguroPF(dataSI, dataSF,seg1, carro1C1, c2);
+			seg1.adicionaSeguro(SeguroPF2Seg1);
+			
+			seguroPFSeg1.setListaCondutores(listaCondutor);
+			seguroPJSeg1.setListaCondutores(listaCondutor);
+			seguroPFSeg2.setListaCondutores(listaCondutor);
+			seguroPJSeg2.setListaCondutores(listaCondutor);
+			
 		// Instancia sinistro pelo seguro
 			seguroPFSeg1.gerarSinistro(dataS1, "Campo Grande", cond1);
 			seguroPJSeg1.gerarSinistro(dataS2, "Campo Largo", cond2);
@@ -124,6 +141,9 @@ public class Main {
 			c4.adicionaFrota(frota4a);
 			c4.adicionaFrota(frota4b);
 		
+		// ------------------------------------------------------------------------------------
+			
+		// Metodos Seguradora
 		
 		// Adiciona os clientes
 			seg1.cadastrarCliente(c1);
@@ -131,6 +151,37 @@ public class Main {
 			seg2.cadastrarCliente(c3);
 			seg2.cadastrarCliente(c4);
 		
+		// Remover cliente
+			seg2.removerCliente("22 130 543 0001 66"); // remove cliente c4 da lista do seg2
+			System.out.println("LISTA DE CLIENTES DA SEGURADORA 2 \n)");
+			System.out.println(seg2.getListaClientes()); // imprime a lista com os clientes 1, 2 e 3
+			seg2.cadastrarCliente(c4); // adicionei novamente o cliente 4
+			
+		// listar clientes pelo tipo dele (PF ou PJ)
+			System.out.println("LISTA DE CLIENTES PF DA SEGURADORA 1 \n)");
+			System.out.println(seg1.listarClientes("PF") + "\n"); // listar clientes PF
+			
+			System.out.println("LISTA DE CLIENTES PJ DA SEGURADORA 1 \n)");
+			System.out.println(seg1.listarClientes("PJ") + "\n"); // listar clientes PJ
+			
+			
+		// Cancela seguro
+			seg1.cancelaSeguro(SeguroPF2Seg1); // remove o segundo seguro da seguradora
+			System.out.println("LISTA DE SEGUROS DA SEGURADORA 1 DEPOIS DE \"SeguroPF2Seg1\" FOI REMOVIDO\n)");
+			System.out.println(seg1.getListaSeguro() + "\n");
+			
+		// Seleciona seguros de um cliente
+			System.out.println("LISTA DE SEGUROS DA CLIENTE 2\n)");
+			System.out.println(seg1.getSegurosPorCliente("Natália Vieira Lima") + "\n");
+			
+		//	Visualizar sinistros
+			System.out.println("VISUALIZAR SINISTRO 2\n)");
+			seg1.visualizarSinistro(s2.getId());
+			
+		// Listar sinistros de um cliente
+			System.out.println("LISTA DE SEGUROS DA CLIENTE 2\n)");
+			System.out.println(seg1.getSegurosPorCliente("Natália Vieira Lima") + "\n");
+			
 		// --------------------------------------------------------------------------------------
 		
 		// toString de 1 objeto de cada classe
@@ -149,9 +200,9 @@ public class Main {
 			
 		// Listar
 		
-		// ------------------------------------------------------------------------------------
+		
 			
-		// Metodos Seguradora
+			
 		
 		// ------------------------------------------------------------------------------------
 			

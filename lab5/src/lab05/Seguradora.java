@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-
 public class Seguradora {
      private final String cnpj;
 	 private String nome;
@@ -88,7 +87,7 @@ public class Seguradora {
 	}
 	
 	// Verifica se o cliente ja foi cadastrado antes, se nao foi ele adiciona novo
-	public boolean cadastrarCliente(Cliente cliente1) throws ParseException {
+	public boolean cadastrarCliente(Cliente cliente1)  {
 		int verifica = 1;
 		
 		for(Cliente cliente : listaClientes) {  // percorre toda a lista de clientes 
@@ -192,7 +191,7 @@ public class Seguradora {
 	
 	
 	// Gerar seguro para PJ
-	public boolean gerarSeguro(Date dataInicio, Date dataFim,  Frota frota, ClientePJ cliente) {
+	public boolean gerarSeguro(Date dataInicio, Date dataFim,  Frota frota, ClientePJ cliente)  {
 		SeguroPJ seguro = new SeguroPJ(dataInicio,dataFim,this, frota, cliente);
 		  
 	
@@ -234,18 +233,14 @@ public class Seguradora {
 		
 	// Verifica se o seguro esta na lista -> se tiver ele "cancela" = remove da lista
 		public boolean cancelaSeguro(Seguro seguroCancela) {
-			for(Seguro s1 : listaSeguros) {
-				if(s1.getId() == seguroCancela.getId()) {	// verifica o cadastro pelo ID registrado
-					 System.out.println("Seguro cancelado!\n");
-					 this.listaSeguros.remove(seguroCancela);
-					 return true;
-				 }else if(s1.getId() != seguroCancela.getId()) {		
-				     System.out.println("Não foi possível cancelar esse seguro, ele não consta nos nossos registros!\n");
-					 return false;
-				 } 
+			if(this.listaSeguros.contains(seguroCancela)) {
+				System.out.println("Seguro cancelado!\n");
+				 this.listaSeguros.remove(seguroCancela);
+				 return true;
+			} else {
+				 System.out.println("Não foi possível cancelar esse seguro, ele não consta nos nossos registros!\n");
+				 return false;
 			}
-			
-			return false;
 		}
 	
 		

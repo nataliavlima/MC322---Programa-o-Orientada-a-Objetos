@@ -111,6 +111,16 @@ public class ClientePF extends Cliente {
 		return false;
 		}
  
+	public ArrayList<String> listaPlacasVeiculos() {
+		ArrayList < String > listaPlacasVeiculos = new ArrayList<String>();
+	 	
+	 	for(Veiculo veiculo : getListaVeiculo()) {
+	 		listaPlacasVeiculos.add(veiculo.getPlaca());
+	 	}
+	 	return listaPlacasVeiculos; // retorna a lista nova
+	}
+	
+	
  @Override
  public String toString () {
 		String saida = "";
@@ -119,7 +129,7 @@ public class ClientePF extends Cliente {
 			"\n Data de Nascimento: " + this.dataNascimento + 
 			"\n Educação: " + this.educacao +  
 			"\n Gênero:  " + this.genero+ 
-			"\n Lista de Veículos:  " + this.listaVeiculos+
+			"\n Lista de Veículos:  " + listaPlacasVeiculos()+
 			"\n\n";
 		
 		

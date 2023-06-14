@@ -2,6 +2,9 @@ package lab05;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -16,7 +19,7 @@ public class SeguroPF extends Seguro{
 	// Construtor
 	public SeguroPF( Date dataInicio, Date dataFim,Seguradora seguradora, Veiculo veiculo, ClientePF cliente) {
 		super( dataInicio,dataFim,seguradora); 
-			
+		super.setValorMensal(calcularValor());
 		this.veiculo = veiculo;
 		this.cliente = cliente;
 	}
@@ -37,47 +40,19 @@ public class SeguroPF extends Seguro{
 	}
 	
 	
-	public int calculaIdade(Date dataNascimento)throws ParseException {
-	 	
-	 	// Define a data de hoje numa variavel
-		Date date = new Date(); 
-		Calendar calendar = Calendar.getInstance();
-		calendar.setTime(date);
-		
-		// Separa a data de nascimento em Dia, Mes e Ano:
-	 	SimpleDateFormat y = new SimpleDateFormat("yyyy"); 
-		SimpleDateFormat m = new SimpleDateFormat("MM"); 
-		SimpleDateFormat d = new SimpleDateFormat("dd"); 	
-		int nAno = Integer.parseInt( y.format(dataNascimento)); 
-		int nMes = Integer.parseInt( m.format(dataNascimento)); 
-		int nDia = Integer.parseInt( d.format(dataNascimento)); 
-		
-		// Define a data do dia de hoje separada em Dia, Mes e Ano:
-		int ano = calendar.get(Calendar.YEAR);
-		int mes = calendar.get(Calendar.MONTH);
-		int dia = calendar.get(Calendar.DAY_OF_MONTH);
-		
-		
-		// Calcula a idade:
-		int idade = 0;
-		
-		int idadeAno =  ano - nAno;
-		int idadeDia = dia - nDia;
-		int idadeMes = mes - nMes;
-		
-		/* Se o mes/dia do aniversario for maior que o data de hoje (subtração deu negativa) 
-		*  entao a pessoa ainda nao fez aniversario
-		*  logo a idade e' a diferenca de anos -1
-		*/
-		
-		if ((idadeMes <= 0) || (idadeDia < 0)) { 
-				idade = idadeAno - 1;
-				
-		}else {
-			idade = idadeAno;
-		}
-		return idade;
- }
+	 public int calculaIdade(Date dataNascimento) {
+	        LocalDate dataNasc = dataNascimento.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+	        LocalDate hoje = LocalDate.now();
+	        int idade = hoje.getYear() - dataNasc.getYear();
+
+	        if (hoje.getMonthValue() < dataNasc.getMonthValue() || (hoje.getMonthValue() == dataNasc.getMonthValue() && hoje.getDayOfMonth() < dataNasc.getDayOfMonth())) {
+	            idade--;
+	        }
+
+	        return idade;
+	    }
+	    
+
 	public int quantidadeSinistrosCondutor(){
 		int quantidadeSinistrosCondutor = 0;
 		for(Condutor condutor : getListaCondutores()) { // acessa a cada condutor da lista
@@ -86,10 +61,13 @@ public class SeguroPF extends Seguro{
 		return quantidadeSinistrosCondutor;
 	}
 
-
-	public double calcularValor() throws ParseException {
-		  
-		 int idade = calculaIdade(cliente.getDataNascimento());
+	@Override
+	public double calcularValor() {
+         //int idade = calculaIdade(getCliente().getDataNascimento());
+		LocalDate dataNasc = cliente.getDataNascimento().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        
+		 LocalDate dataAtual = LocalDate.now();
+	     int idade = Period.between(dataNasc, dataAtual).getYears();
 		 double fator_idade = 0;
 		 
 		 // define o Fator idade conforme as faixas etarias
@@ -116,7 +94,7 @@ public class SeguroPF extends Seguro{
 	 @Override
 	public String toString () {
 		return  super.toString() +  
-				" Veículo: \n" + this.veiculo + 
+				" Veículo: \n" + this.veiculo.getPlaca() + 
 				" Cliente: " + this.cliente.getNome()+ "\n";
 	}
 }

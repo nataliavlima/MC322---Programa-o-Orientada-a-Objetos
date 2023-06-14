@@ -2,6 +2,9 @@ package lab05;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -13,9 +16,9 @@ public class SeguroPJ extends Seguro{
 	private ClientePJ cliente;
 	
 	// Construtor
-	public SeguroPJ( Date dataInicio, Date dataFim,Seguradora seguradora,  Frota frota, ClientePJ cliente) {
+	public SeguroPJ( Date dataInicio, Date dataFim,Seguradora seguradora,  Frota frota, ClientePJ cliente)  {
 		super( dataInicio,dataFim,seguradora); 
-			
+		super.setValorMensal(calcularValor());
 		this.frota = frota;
 		this.cliente = cliente;
 	}
@@ -36,25 +39,12 @@ public class SeguroPJ extends Seguro{
 		this.cliente = cliente;
 	}
 		
-	public int calculaAno(Date dataFundacao)throws ParseException {
-	 	
-	 	// Define a data de hoje numa variavel
-		Date date = new Date(); 
-		Calendar calendar = Calendar.getInstance();
-		calendar.setTime(date);
-		
-		// Separa a data de fundacao em apenas Ano:
-	 	SimpleDateFormat y = new SimpleDateFormat("yyyy"); 
-		int nAno = Integer.parseInt( y.format(dataFundacao)); 
-		
-		// Define o ano atual:
-		int ano = calendar.get(Calendar.YEAR);
-		
-		// Calcula a ano pos fundacao (ano atual - ano fundacao):
-		int idadeAno =  ano - nAno;
-		
-		return idadeAno;
- }
+	public int calculaAno(Date dataFundacao) {
+        LocalDate dataFund = LocalDate.ofInstant(dataFundacao.toInstant(), ZoneId.systemDefault());
+        LocalDate hoje = LocalDate.now();
+        Period periodo = Period.between(dataFund, hoje);
+        return periodo.getYears();
+    }
   
 	public int quantidadeSinistrosCondutor(){
 		int quantidadeSinistrosCondutor = 0;
@@ -64,7 +54,7 @@ public class SeguroPJ extends Seguro{
 		return quantidadeSinistrosCondutor;
 	}
 
-	public double calcularValor() throws ParseException {
+	public double calcularValor() {
 		  
 		 int AnosPosFundacao = calculaAno(cliente.getDataFundacao());
 		 
@@ -84,7 +74,7 @@ public class SeguroPJ extends Seguro{
 	@Override
 	public String toString () {
 		return  super.toString() + 
-				" Frota: \n" + this.frota + 
+				" Frota: \n" + this.frota.getCode() + 
 				" Cliente: " + this.cliente.getNome()+ "\n";
 	}
 }

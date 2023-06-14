@@ -133,7 +133,7 @@ public abstract class Seguro {
 			
 		}
 		
-		public double calcularValor() throws ParseException {
+		public double calcularValor() {
 			
 			 // calculo do valor do seguro dependendo do tipo (PF ou PJ)
 			
@@ -152,8 +152,23 @@ public abstract class Seguro {
 		}
 		
 		
+		public ArrayList<String> listaNomeCondutores() {
+			ArrayList < String > listaNomeCondutores = new ArrayList<String>();
+		 	
+		 	for(Condutor Condutor : getListaCondutores()) {
+		 		listaNomeCondutores.add(Condutor.getNome());
+		 	}
+		 	return listaNomeCondutores; // retorna a lista nova
+		}
 		
-		
+		public ArrayList<String> listaEnderecoSinistros() {
+			ArrayList < String > listaEnderecoSinistros = new ArrayList<String>();
+		 	
+		 	for(Sinistro sinistro : getListaSinistro()) {
+		 		listaEnderecoSinistros.add(sinistro.getEndereco());
+		 	}
+		 	return listaEnderecoSinistros; // retorna a lista nova
+		}
 		
 		 // toString()
 		public String toString () {
@@ -162,8 +177,8 @@ public abstract class Seguro {
 					"\n Data início: " + this.dataInicio + 
 					"\n Data fim: " + this.dataFim + 
 					"\n Seguradora: " + this.seguradora.getNome() + 
-					"\n Lista Sinistros: " + this.listaSinistros + 
-					"\n Lista Condutores: " + this.listaCondutores + 
+					"\n Lista Sinistros (endereços): " + listaEnderecoSinistros() + 
+					"\n Lista Condutores (nomes): " + listaNomeCondutores() + 
 					"\n Valor mensal: R$ " + this.valorMensal + 
 					"\n";
 			
