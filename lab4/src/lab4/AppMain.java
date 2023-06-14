@@ -105,7 +105,8 @@ public class AppMain {
 			System.out.println(seg1.listarSinistros("Fio a Fio"));
 			
 			/* O preco do seguro ja e' atualizado automaticamente pelo cadastro do cliente
-			*  Colocarei para imprimir para ver que automaticamente ja foi, adicionarei um carro e atualizarei o seguro
+			*  Colocarei para imprimir para ver que automaticamente ja foi
+			*  adicionarei um carro e atualizarei o seguro
 			*/
 			
 			System.out.println("--------------------------------------------------------------------------\n");
