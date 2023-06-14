@@ -19,7 +19,7 @@ public class SeguroPF extends Seguro{
 	// Construtor
 	public SeguroPF( Date dataInicio, Date dataFim,Seguradora seguradora, Veiculo veiculo, ClientePF cliente) {
 		super( dataInicio,dataFim,seguradora); 
-		super.setValorMensal(calcularValor());
+		//super.setValorMensal(calcularValor());
 		this.veiculo = veiculo;
 		this.cliente = cliente;
 	}
@@ -63,11 +63,8 @@ public class SeguroPF extends Seguro{
 
 	@Override
 	public double calcularValor() {
-         //int idade = calculaIdade(getCliente().getDataNascimento());
-		LocalDate dataNasc = cliente.getDataNascimento().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        
-		 LocalDate dataAtual = LocalDate.now();
-	     int idade = Period.between(dataNasc, dataAtual).getYears();
+         int idade = calculaIdade(cliente.getDataNascimento());
+		
 		 double fator_idade = 0;
 		 
 		 // define o Fator idade conforme as faixas etarias

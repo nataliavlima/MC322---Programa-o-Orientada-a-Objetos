@@ -18,9 +18,10 @@ public class SeguroPJ extends Seguro{
 	// Construtor
 	public SeguroPJ( Date dataInicio, Date dataFim,Seguradora seguradora,  Frota frota, ClientePJ cliente)  {
 		super( dataInicio,dataFim,seguradora); 
-		super.setValorMensal(calcularValor());
+		
 		this.frota = frota;
 		this.cliente = cliente;
+		//super.setValorMensal(calcularValor());
 	}
 	
 	public Frota getFrota() {
@@ -38,7 +39,7 @@ public class SeguroPJ extends Seguro{
 	public void setCliente(ClientePJ cliente) {
 		this.cliente = cliente;
 	}
-		
+	
 	public int calculaAno(Date dataFundacao) {
         LocalDate dataFund = LocalDate.ofInstant(dataFundacao.toInstant(), ZoneId.systemDefault());
         LocalDate hoje = LocalDate.now();
@@ -53,7 +54,7 @@ public class SeguroPJ extends Seguro{
 			}
 		return quantidadeSinistrosCondutor;
 	}
-
+	  @Override
 	public double calcularValor() {
 		  
 		 int AnosPosFundacao = calculaAno(cliente.getDataFundacao());

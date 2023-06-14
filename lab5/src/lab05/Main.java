@@ -125,6 +125,7 @@ public class Main {
 			seguroPJSeg1.gerarSinistro(dataS2, "Campo Largo", cond2);
 			seguroPFSeg2.gerarSinistro(dataS3, "São Paulo", cond3);
 			seguroPJSeg2.gerarSinistro(dataS4, "Campinas", cond4);
+			System.out.println("VALOR SEGURO PFseg1:" + seguroPFSeg1.calcularValor());
 		
 		// Atribui nome ao sinistro pela posicao da lista do seguro
 			Sinistro s1 = ((Sinistro)seguroPFSeg1.getListaSinistro().get(0));

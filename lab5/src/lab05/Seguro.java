@@ -133,7 +133,7 @@ public abstract class Seguro {
 			
 		}
 		
-		public double calcularValor() {
+		/*public double calcularValor() {
 			
 			 // calculo do valor do seguro dependendo do tipo (PF ou PJ)
 			
@@ -149,7 +149,11 @@ public abstract class Seguro {
 				}
 			 }
 			 return valorMensal;
-		}
+		}*/
+		
+		public double calcularValor(){
+	        return 0.0;
+	    }
 		
 		
 		public ArrayList<String> listaNomeCondutores() {
@@ -169,6 +173,7 @@ public abstract class Seguro {
 		 	}
 		 	return listaEnderecoSinistros; // retorna a lista nova
 		}
+		
 		
 		 // toString()
 		public String toString () {
