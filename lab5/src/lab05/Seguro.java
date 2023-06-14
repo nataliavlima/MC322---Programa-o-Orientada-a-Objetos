@@ -24,13 +24,14 @@ public abstract class Seguro {
 			this.seguradora = seguradora;
 			this.listaSinistros = new ArrayList<Sinistro>();
 			this.listaCondutores = new ArrayList<Condutor>();
-			this.valorMensal = 0.0;
+			
 		}
 
 			
 		// Getters e setters
 		
 		
+
 		public int getNum() {
 			return num;
 		}
@@ -123,7 +124,8 @@ public abstract class Seguro {
 			Sinistro sinistro = new Sinistro(data, endereco, condutor,this);
 			
 			if((!(this.getListaSinistro()).contains(sinistro))) { // se nao ja esta registrado, ele adiciona
-				getListaSinistro().add(sinistro);
+				getListaSinistro().add(sinistro); // atualiza a lista dos sinistros do seguro
+				seguradora.adicionaSinistros(sinistro); // atualiza a lista dos sinistros da seguradora
 				System.out.println("Sinistro cadastrado com sucesso!");
 				return true;
 			} else {
@@ -132,29 +134,6 @@ public abstract class Seguro {
 			}
 			
 		}
-		
-		/*public double calcularValor() {
-			
-			 // calculo do valor do seguro dependendo do tipo (PF ou PJ)
-			
-			 for(Seguro seguro : seguradora.getListaSeguro()) {
-			 	if(seguro instanceof SeguroPF) {
-			 		this.valorMensal =  ((SeguroPF) seguro).calcularValor(); // se seguro for PF chama a funcao de PF e atribui ao valor mensal
-					
-				} else if(seguro instanceof SeguroPJ) {
-					this.valorMensal = ((SeguroPJ) seguro).calcularValor(); 
-		
-				} else {
-					this.valorMensal = 0;
-				}
-			 }
-			 return valorMensal;
-		}*/
-		
-		public double calcularValor(){
-	        return 0.0;
-	    }
-		
 		
 		public ArrayList<String> listaNomeCondutores() {
 			ArrayList < String > listaNomeCondutores = new ArrayList<String>();

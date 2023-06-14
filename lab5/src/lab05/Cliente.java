@@ -60,6 +60,9 @@ public abstract class Cliente {
 					"\n";
 			
 			}
+
+
+		
 		
 	  
 	}

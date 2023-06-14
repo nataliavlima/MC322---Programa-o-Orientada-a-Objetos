@@ -16,7 +16,7 @@ public class SeguroPJ extends Seguro{
 	private ClientePJ cliente;
 	
 	// Construtor
-	public SeguroPJ( Date dataInicio, Date dataFim,Seguradora seguradora,  Frota frota, ClientePJ cliente)  {
+	public SeguroPJ( Date dataInicio, Date dataFim,Seguradora seguradora, Frota frota, ClientePJ cliente)  {
 		super( dataInicio,dataFim,seguradora); 
 		
 		this.frota = frota;
@@ -54,7 +54,7 @@ public class SeguroPJ extends Seguro{
 			}
 		return quantidadeSinistrosCondutor;
 	}
-	  @Override
+	  //@Override
 	public double calcularValor() {
 		  
 		 int AnosPosFundacao = calculaAno(cliente.getDataFundacao());
@@ -67,15 +67,30 @@ public class SeguroPJ extends Seguro{
 		 
 		 // define o valor mensal
 		 double valor = (CalcSeguro.VALOR_BASE.fator)*(10 + (quantidadeFunc/10))*(1+1/(quantidadeVeiculos + 2))*(1 + 1/(AnosPosFundacao + 2))* (2 + quantidadeSinistrosCliente/10) * (5 + quantidadeSinistrosCondutor/10);
-
+		 this.setValorMensal(valor);
 		 return valor;
 		
 	}
-	
+	/*
 	@Override
 	public String toString () {
 		return  super.toString() + 
 				" Frota: \n" + this.frota.getCode() + 
 				" Cliente: " + this.cliente.getNome()+ "\n";
-	}
+	}*/
+	public String toString () {
+		return "SeguroPF: [" +
+				" ID: " + this.id + 
+				//", Data início: " + this.dataInicio + 
+				//", Data fim: " + this.dataFim + 
+				", Seguradora: " + this.seguradora.getNome() + 
+				", Valor mensal: R$ " + calcularValor() + 
+				", Frota: " + this.frota.getCode() +
+			    ", Cliente: " + this.cliente.getNome()+
+				"\n   Lista Sinistros (endereços):\n " + "   " + listaEnderecoSinistros() + 
+				"\n   Lista Condutores (nomes):   \n " + "   " + listaNomeCondutores() + 
+
+				" ]\n";
+		
+		}
 }

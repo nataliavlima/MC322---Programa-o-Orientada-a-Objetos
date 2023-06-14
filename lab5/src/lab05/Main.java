@@ -7,11 +7,10 @@ import java.util.Date;
 import java.util.List;
 
 
-
-
 public class Main {
 	public static void main(String[] args) throws ParseException {
 		// Listas a serem utilizadas para armazenar todo mundo cadastrado
+		
 				ArrayList<Cliente> listaClientesTotal = new ArrayList<Cliente>();
 				ArrayList<Seguradora> listaSeguradoraTotal = new ArrayList<Seguradora>();
 				ArrayList<Sinistro> listaSinistroTotal = new ArrayList<Sinistro>();
@@ -80,7 +79,7 @@ public class Main {
 			Veiculo carro2C3 = new Veiculo("DET7740", "Volkswagen", "Saveiro", 2012);
 			Veiculo carro1C4 = new Veiculo("EGO7757", "Volkswagen", "Polo", 2019);
 			Veiculo carro2C4 = new Veiculo("NUI4876", "Toyota", "Corolla", 2014);
-				
+			
 		
 		// Frota
 			Frota frota1 = new Frota("code 1");
@@ -112,7 +111,7 @@ public class Main {
 			SeguroPF seguroPFSeg2 = ((SeguroPF)seg2.getListaSeguro().get(1));
 			SeguroPJ seguroPJSeg2 = ((SeguroPJ)seg2.getListaSeguro().get(0));
 			
-			SeguroPF SeguroPF2Seg1 = new SeguroPF(dataSI, dataSF,seg1, carro1C1, c2);
+			SeguroPF SeguroPF2Seg1 = new SeguroPF(dataSI, dataSF,seg1, carro1C1, c2);			
 			seg1.adicionaSeguro(SeguroPF2Seg1);
 			
 			seguroPFSeg1.setListaCondutores(listaCondutor);
@@ -125,14 +124,14 @@ public class Main {
 			seguroPJSeg1.gerarSinistro(dataS2, "Campo Largo", cond2);
 			seguroPFSeg2.gerarSinistro(dataS3, "São Paulo", cond3);
 			seguroPJSeg2.gerarSinistro(dataS4, "Campinas", cond4);
-			System.out.println("VALOR SEGURO PFseg1:" + seguroPFSeg1.calcularValor());
-		
+			System.out.println("VALOR SEGURO PFseg1:" + seguroPFSeg2.calcularValor());
+			System.out.println("VALOR SEGURO PFseg1:" + seguroPFSeg2.getValorMensal());
 		// Atribui nome ao sinistro pela posicao da lista do seguro
 			Sinistro s1 = ((Sinistro)seguroPFSeg1.getListaSinistro().get(0));
 			Sinistro s2 = ((Sinistro)seguroPJSeg1.getListaSinistro().get(0));
 			Sinistro s3 = ((Sinistro)seguroPFSeg2.getListaSinistro().get(0));
 			Sinistro s4 = ((Sinistro)seguroPJSeg2.getListaSinistro().get(0));
-		
+			
 		
 		// Adicionar os veiculos aos clientes 2 e 3 e frota aos clientes 1 e 4
 			c1.adicionaFrota(frota1);
@@ -151,7 +150,7 @@ public class Main {
 			seg1.cadastrarCliente(c2);
 			seg2.cadastrarCliente(c3);
 			seg2.cadastrarCliente(c4);
-		
+	
 		// Remover cliente
 			seg2.removerCliente("22 130 543 0001 66"); // remove cliente c4 da lista do seg2
 			System.out.println("LISTA DE CLIENTES DA SEGURADORA 2 \n)");
@@ -180,9 +179,12 @@ public class Main {
 			seg1.visualizarSinistro(s2.getId());
 			
 		// Listar sinistros de um cliente
-			System.out.println("LISTA DE SEGUROS DA CLIENTE 2\n)");
+			System.out.println("LISTA DE SEGUROS DA CLIENTE 2\n");
 			System.out.println(seg1.getSegurosPorCliente("Natália Vieira Lima") + "\n");
 			
+		// Calcula receita total
+			System.out.println("CÁLCULO DA RECEITA TOTAL");
+			System.out.println("Receita total da Seguradora " + seg1.getNome()+ ": R$ " +  seg1.calcularReceita() + "\n\n");
 		// --------------------------------------------------------------------------------------
 		
 		// toString de 1 objeto de cada classe
@@ -192,21 +194,53 @@ public class Main {
 			System.out.println("Condutor:\n" +cond1.toString());		 // condutor
 			System.out.println("Veiculo:\n" +carro1C1.toString()); 	 // Veiculo
 			System.out.println("Frota:\n" +frota1.toString()); 		 // Frota
-			System.out.println(seg1.toString()); 		 // Seguradora
+		    System.out.println(seg1.toString()); 		 // Seguradora
 			System.out.println(seguroPFSeg1.toString()); // Seguro PF
 			System.out.println(seguroPJSeg1.toString()); // Seguro PJ
 			System.out.println(s1.toString()); 			 // Sinistro
 			
-		// --------------------------------------------------------------------------------------
+		// ------------------------------------------------------------------------------------
+		// Adicionando todos os elementos anteires na lista Total de cada item para ter base pro Menu
 			
-		// Listar
-		
-		
+			listaClientesTotal.add(c1);
+			listaClientesTotal.add(c2);
+			listaClientesTotal.add(c3);
+			listaClientesTotal.add(c4);
 			
+			listaVeiculoTotal.add(carro1C1);
+			listaVeiculoTotal.add(carro2C1);
+			listaVeiculoTotal.add(carro1C2);
+			listaVeiculoTotal.add(carro1C3);
+			listaVeiculoTotal.add(carro2C3);
+			listaVeiculoTotal.add(carro1C4);
+			listaVeiculoTotal.add(carro2C4);
+			 
+			listaCondutorTotal.add(cond1);
+			listaCondutorTotal.add(cond2);
+			listaCondutorTotal.add(cond3);
+			listaCondutorTotal.add(cond4);
 			
-		
+			listaSeguroTotal.add(seguroPFSeg1);
+			listaSeguroTotal.add(seguroPJSeg1);
+			listaSeguroTotal.add(seguroPFSeg2);
+			listaSeguroTotal.add(seguroPJSeg2);
+			listaSeguroTotal.add(SeguroPF2Seg1);
+			
+			listaFrotaTotal.add(frota1);
+			listaFrotaTotal.add(frota4a);
+			listaFrotaTotal.add(frota4b);
+			
+			listaSeguradoraTotal.add(seg1);
+			listaSeguradoraTotal.add(seg2);
+			
+			listaSinistroTotal.add(s1);
+			listaSinistroTotal.add(s2);
+			listaSinistroTotal.add(s3);
+			listaSinistroTotal.add(s4);
+			
 		// ------------------------------------------------------------------------------------
 			
 		// Menu de operacoes
+			Menu.menuOperacoes(listaCondutorTotal, listaSeguroTotal,listaFrotaTotal,listaClientesTotal, listaSeguradoraTotal,listaSinistroTotal ,listaVeiculoTotal);
 	}
 }

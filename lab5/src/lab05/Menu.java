@@ -8,17 +8,21 @@ import java.util.List;
 import java.util.Scanner;
 
 
+
 public class Menu {
-	public static List<Cliente> fazer_cadastro_cliente(List<Cliente> listaClientesTotal) throws ParseException{
+	public static ArrayList<Cliente> fazer_cadastro_cliente(ArrayList<Cliente> listaClientesTotal) throws ParseException{
 		SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
 		
 		Scanner usuario = new Scanner(System.in);
 		String tipoCliente;
 		
 		String nomeCliente;
+		String telefone;
 		String endereco;
+		String email;
 		ArrayList<Veiculo> listaVeiculo= new ArrayList<Veiculo>();
 		ArrayList<Veiculo> listaVeiculoInicial =  new ArrayList<Veiculo>();
+		ArrayList<Frota> listaFrota = new ArrayList<Frota>();
 		
 		String cpfCliente;
 		String genero;
@@ -38,6 +42,12 @@ public class Menu {
 			System.out.println("Digite o nome do cliente: ");
 			nomeCliente = usuario.nextLine();   // Recebe o que o usuario digitou e insere na variavel respectiva
 			
+			System.out.println("Digite o telefone do cliente: ");
+			telefone = usuario.nextLine();
+			
+			System.out.println("Digite o email do cliente: ");
+			email = usuario.nextLine();
+			
 			System.out.println("Digite o endereço do cliente: ");
 			endereco = usuario.nextLine();
 			
@@ -51,21 +61,15 @@ public class Menu {
 			dataNascimentoString = usuario.nextLine();
 			Date dataNascimento = formato.parse(dataNascimentoString);
 			
-			System.out.println("Qual a data de licença do cliente? Digite no formato dia/mês/ano");
-			dataLicencaString = usuario.nextLine();
-			Date dataLicenca = formato.parse(dataLicencaString);
-			
 			System.out.println("Digite a escolaridade do cliente: ");
 			educacao = usuario.nextLine();
 			
 			System.out.println("Digite o gênero do cliente: ");
 			genero = usuario.nextLine();
-			
-			System.out.println("Digite a classe econômica do cliente: ");
-			classeEconomica = usuario.nextLine();
 			usuario.nextLine();// limpa o scanner
 			
-			ClientePF c1 = new ClientePF(nomeCliente,endereco,listaVeiculo, cpfCliente, dataNascimento,dataLicenca, educacao, genero, classeEconomica); 
+			ClientePF c1 = new ClientePF(nomeCliente, telefone, endereco, email, cpfCliente, dataNascimento, educacao, genero); 
+			c1.setListaVeiculo(listaVeiculo);
 			listaClientesTotal.add(c1);
 			System.out.println("\nDados cadastrados do cliente: \n");
 			System.out.println(c1.toString());
@@ -74,11 +78,17 @@ public class Menu {
 			System.out.println("Digite o nome do cliente: ");
 			nomeCliente = usuario.nextLine();   // Recebe o que o usuario digitou e insere na variavel respectiva
 			
+			System.out.println("Digite o telefone do cliente: ");
+			telefone = usuario.nextLine();
+			
 			System.out.println("Digite o endereço do cliente: ");
 			endereco = usuario.nextLine();
 			
-			System.out.println("Vamos cadastrar o(s) veiculo(s) do cliente: ");
-			listaVeiculo.add(fazer_cadastro_veiculo(listaVeiculo)); 
+			System.out.println("Digite o email do cliente: ");
+			email = usuario.nextLine();
+			
+			System.out.println("Vamos cadastrar a(s) frotas(s) do cliente: ");
+			listaFrota.add(fazer_cadastro_frota(listaFrota)); 
 			
 			System.out.println("Digite o CNPJ do cliente: ");
 			cnpj = usuario.nextLine();
@@ -91,7 +101,8 @@ public class Menu {
 			qtdFuncionarios = usuario.nextInt();
 			usuario.nextLine();// limpa o scanner
 			
-			ClientePJ c2 = new ClientePJ(nomeCliente,endereco,listaVeiculo, cnpj, dataFundacao,qtdFuncionarios); 
+			ClientePJ c2 = new ClientePJ(nomeCliente, telefone, endereco, email, cnpj, dataFundacao); 
+			c2.setListaFrota(listaFrota);
 			listaClientesTotal.add(c2);
 			System.out.println("\nDados cadastrados do cliente: \n");
 			System.out.println(c2.toString());
@@ -129,15 +140,80 @@ public class Menu {
 	}
 	
 	
-	public static List<Seguradora>  fazer_cadastro_seguradora(List<Seguradora> listaSeguradoraTotal) {
+	public static Frota fazer_cadastro_frota(ArrayList<Frota> listaFrotaTotal) {
+		String code; 
+		ArrayList<Veiculo> listaVeiculo= new ArrayList<Veiculo>();
+		ArrayList<Veiculo> listaVeiculoInicial =  new ArrayList<Veiculo>();
 		Scanner usuario = new Scanner(System.in);
+		
+		System.out.println("Digite o código da frota: ");
+		code = usuario.nextLine();   // Recebe o que o usuario digitou e insere na variavel respectiva
+		
+		System.out.println("Vamos cadastrar o(s) veiculo(s) do cliente: ");
+		listaVeiculo.add(fazer_cadastro_veiculo(listaVeiculoInicial)); 
+		
+		Frota frota = new Frota(code);
+		frota.setListaVeiculo(listaVeiculo);
+		listaFrotaTotal.add(frota);
+		
+		return frota;
+	}
+	
+	public static Condutor fazer_cadastro_condutor(ArrayList<Condutor> listaCondutorTotal) throws ParseException{
+		SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+		
+		Scanner usuario = new Scanner(System.in);
+		
+		String nomeCondutor;
+		String telefone;
+		String endereco;
+		String email;		
+		String cpf;
+		String dataNascimentoString;
+		
+		
+		System.out.println("Digite o CPF do cliente: ");
+		cpf = usuario.nextLine();
+		
+		System.out.println("Digite o nome do condutor: ");
+		nomeCondutor = usuario.nextLine();   // Recebe o que o usuario digitou e insere na variavel respectiva
+		
+		System.out.println("Digite o telefone do cliente: ");
+		telefone = usuario.nextLine();
+		
+		System.out.println("Digite o endereço do cliente: ");
+		endereco = usuario.nextLine();
+		
+		System.out.println("Digite o email do cliente: ");
+		email = usuario.nextLine();
+		
+		System.out.println("Qual a data de nascimento do cliente? Digite no formato dia/mês/ano");
+		dataNascimentoString = usuario.nextLine();
+		Date dataNascimento = formato.parse(dataNascimentoString);
+		
+		usuario.nextLine();// limpa o scanner
+		
+		Condutor c1 = new Condutor(cpf, nomeCondutor, telefone, endereco, email, dataNascimento); 
+		listaCondutorTotal.add(c1);
+		System.out.println("\nDados cadastrados do condutor: \n");
+		System.out.println(c1.toString());
+		
+		return c1;
+		}
+	
+	public static ArrayList<Seguradora>  fazer_cadastro_seguradora(ArrayList<Seguradora> listaSeguradoraTotal) {
+		Scanner usuario = new Scanner(System.in);
+		String cnpj;
 		String nome;
 		String telefone;
 		String email;
 		String endereco;
 		
+		System.out.println("Digite o cnpj da seguradora: ");
+		cnpj = usuario.nextLine();   // Recebe o que o usuario digitou e insere na variavel respectiva
+		
 		System.out.println("Digite o nome da seguradora: ");
-		nome = usuario.nextLine();   // Recebe o que o usuario digitou e insere na variavel respectiva
+		nome = usuario.nextLine();   
 		
 		System.out.println("Digite o telefone da seguradora: ");
 		telefone = usuario.nextLine();
@@ -149,13 +225,14 @@ public class Menu {
 		endereco = usuario.nextLine();
 		usuario.nextLine();// limpa o scanner
 		
-		Seguradora s1 = new Seguradora(nome, telefone, email, endereco);
+		Seguradora s1 = new Seguradora(cnpj, nome, telefone, email, endereco);
 		listaSeguradoraTotal.add(s1);
 		return listaSeguradoraTotal;
 	}
 	
+	// CADASTRAR CONDUTOR
 
-	public static List<Cliente>  fazer_lista_cliente_seg(List<Seguradora> listaSeguradoraTotal) {
+	public static ArrayList<Cliente>  fazer_lista_cliente_seg(ArrayList<Seguradora> listaSeguradoraTotal) {
 		//System.out.println(listaSeguradoraTotal);
 		
 		Scanner usuario = new Scanner(System.in);
@@ -163,7 +240,7 @@ public class Menu {
 		String nomeSeg = usuario.nextLine();
 		
 		
-		List<Cliente> listarClientesSeg = new ArrayList<Cliente>();
+		ArrayList<Cliente> listarClientesSeg = new ArrayList<Cliente>();
 			for(Seguradora seguradora1 : listaSeguradoraTotal ) { 
 				
 				String nomeSeguradora = seguradora1.getNome();
@@ -174,34 +251,34 @@ public class Menu {
 			System.out.println(listarClientesSeg);
 			return listarClientesSeg;
 	}
-	
-	public static List<Sinistro>  fazer_lista_sinistro_cli(List<Sinistro> listaSinistroTotal, String nomeCli) {
+	/*
+	public static ArrayList<Sinistro>  fazer_lista_sinistro_cli(ArrayList<Sinistro> listaSinistroTotal, String nomeCondutor) {
 			
-		List<Sinistro> listarSinistrosCli = new ArrayList<Sinistro>();
+		ArrayList<Sinistro> listarSinistrosCli = new ArrayList<Sinistro>();
 			for(Sinistro sinistro1 : listaSinistroTotal ) { 
 				
-				String nomeSinistro = sinistro1.getCliente().getNome();
-				if(nomeSinistro.equals(nomeCli)) {
+				String nomeSinistro = sinistro1.getCondutor().getNome();
+				if(nomeSinistro.equals(nomeCondutor)) {
 					listarSinistrosCli.add(sinistro1);	
 					return listarSinistrosCli;
 					}
 			}
-			
+			//System.out.println(listarSinistrosCli);
 			return listarSinistrosCli;
-	}
-
-	public static List<Sinistro>  fazer_lista_sinistro_seg(List<Sinistro> listaSinistroTotal) {
+	}*/
+	
+	public static ArrayList<Sinistro>  fazer_lista_sinistro_seguro(ArrayList<Sinistro> listaSinistroTotal) {
 		
 		Scanner usuario = new Scanner(System.in);
-		System.out.println("Qual o nome da Seguradora?");	
+		System.out.println("Qual o ID do Seguro?");	
 		String nomeSeg = usuario.nextLine();
 		
 		
-		List<Sinistro> listarSinistrosSeg = new ArrayList<Sinistro>();
+		ArrayList<Sinistro> listarSinistrosSeg = new ArrayList<Sinistro>();
 			for(Sinistro sinistro1 : listaSinistroTotal ) { 
 				
-				String nomeSinistro = sinistro1.getSeguradora().getNome();
-				if(nomeSinistro.equals(nomeSeg)) {
+				int idSinistro = sinistro1.getId();
+				if(idSinistro == sinistro1.getId()) {
 					listarSinistrosSeg.add(sinistro1);	
 					}
 			}
@@ -209,48 +286,57 @@ public class Menu {
 			return listarSinistrosSeg;
 	}
 	
-
-	public static ArrayList<Veiculo> fazer_lista_veiculo_cli(List<Cliente> listaClientesTotal) {
+	
+	public static ArrayList<Seguro> fazer_lista_seguros_cli(ArrayList<Seguradora> listaSeguradoraTotal) {
 		Scanner usuario = new Scanner(System.in);
-		System.out.println("Qual o nome do Cliente?");	
-		String nomeCli = usuario.nextLine();
+		ArrayList<Seguro> listaSeguroCli = new ArrayList<Seguro>();
 		
-		
-		ArrayList<Veiculo> listaVeiculoCli = new ArrayList<Veiculo>();
-			for(Cliente cliente1: listaClientesTotal) {
-				String nomeCliente = cliente1.getNome();
-						
-				if(nomeCliente.equals(nomeCli)) {
-					listaVeiculoCli = cliente1.getListaVeiculo();	
-					}
-			}
-			System.out.println(listaVeiculoCli);
-			return listaVeiculoCli;
-	}
-
-	public static ArrayList<Veiculo> fazer_lista_veiculo_seg(List<Seguradora> listaSeguradoraTotal) {
-		Scanner usuario = new Scanner(System.in);
-		ArrayList<Veiculo> listaVeiculoSeg = new ArrayList<Veiculo>();
-		
-		System.out.println("Digite o número da seguradora você deseja calcular a receita?");
+		System.out.println("Digite o número da seguradora do seu cliente:");
 		for(int i = 0; i < listaSeguradoraTotal.size(); i++) {
 			System.out.println(i + ": " + listaSeguradoraTotal.get(i).getNome());
 		}
 		
 		int segNum = usuario.nextInt();
 		Seguradora seguradora1 = listaSeguradoraTotal.get(segNum); // seleciona a seguradora pelo index digitado
-				
-		for(int i = 0; i < seguradora1.getListaClientes().size(); i++) { // percorre toda a lista de clientes da seguradora selecionada
-			Cliente cliente1 = seguradora1.getListaClientes().get(i);
-				for(int j = 0;j < cliente1.getListaVeiculo().size(); j++) { // percorre toda a lista de veiculo do cliente com o index(j)
-				listaVeiculoSeg.add(cliente1.getListaVeiculo().get(j)); // adiciona cada veiculo do cliente(j) na lista que ira retornar
-				}
-		}
-	
-		System.out.println(listaVeiculoSeg);
-		return listaVeiculoSeg;
-}
 		
+		usuario.nextLine();// limpa o scanner
+		System.out.println("Digite o nome do cliente que você deseja listar os seguros:");
+		String nomeCli = usuario.nextLine();
+		
+		listaSeguroCli = seguradora1.getSegurosPorCliente(nomeCli);
+		System.out.println(listaSeguroCli);
+			return listaSeguroCli;
+	}
+	
+	public static ArrayList<Seguro>  fazer_lista_seguros_seg(ArrayList<Seguradora> listaSeguradoraTotal) {
+		ArrayList<Seguro> listaSeguroSeg = new ArrayList<Seguro>();
+		Scanner usuario = new Scanner(System.in);
+		System.out.println("Digite o número da seguradora do seu cliente:");
+		for(int i = 0; i < listaSeguradoraTotal.size(); i++) {
+			System.out.println(i + ": " + listaSeguradoraTotal.get(i).getNome());
+		}
+		int segNum = usuario.nextInt();
+		Seguradora seguradora1 = listaSeguradoraTotal.get(segNum); // seleciona a seguradora pelo index digitado
+		listaSeguroSeg = seguradora1.getListaSeguro();
+		System.out.println(listaSeguroSeg);
+			return listaSeguroSeg;
+	}
+	
+	public static ArrayList<Sinistro>  fazer_lista_sinistro_seg(ArrayList<Seguradora> listaSeguradoraTotal) {
+		ArrayList<Sinistro> listaSinistroSeg = new ArrayList<Sinistro>();
+		Scanner usuario = new Scanner(System.in);
+		System.out.println("Digite o número da seguradora do seu cliente:");
+		for(int i = 0; i < listaSeguradoraTotal.size(); i++) {
+			System.out.println(i + ": " + listaSeguradoraTotal.get(i).getNome());
+		}
+		
+		int segNum = usuario.nextInt();
+		Seguradora seguradora1 = listaSeguradoraTotal.get(segNum); // seleciona a seguradora pelo index digitado
+		listaSinistroSeg = seguradora1.getListaSinistros();
+		System.out.println(listaSinistroSeg);
+			return listaSinistroSeg;
+	}
+	
 	
 	
 	// funcao de transformar uma string em int[]
@@ -268,7 +354,7 @@ public class Menu {
 				return stringInt;
 		 }
 	
-	public static List<Cliente> excluir_cliente(List<Cliente> listaClientesTotal) {
+	public static ArrayList<Cliente> excluir_cliente(ArrayList<Cliente> listaClientesTotal) {
 		Scanner usuario = new Scanner(System.in);
 		
 		System.out.println("Digite o numero do documento do cliente que deseja excluir: ");	
@@ -329,7 +415,7 @@ public class Menu {
 		return listaVeiculoTotal;
 	}
 
-	public static List<Sinistro> excluir_sinistro(List<Sinistro> listaSinistroTotal) {
+	public static ArrayList<Sinistro> excluir_sinistro(ArrayList<Sinistro> listaSinistroTotal) {
 		Scanner usuario = new Scanner(System.in);
 		
 		System.out.println("Qual o ID que você deseja excluir?");	
@@ -349,7 +435,27 @@ public class Menu {
 		return listaSinistroTotal;
 	}
 	
-	public static void fazer_cadastro(List<Cliente> listaClientesTotal, List<Seguradora> listaSeguradoraTotal,List<Sinistro> listaSinistroTotal,ArrayList<Veiculo> listaVeiculoTotal) throws ParseException {
+	public static ArrayList<Seguro> excluir_seguro(ArrayList<Seguro> listaSeguroTotal) {
+		Scanner usuario = new Scanner(System.in);
+		
+		System.out.println("Qual o ID que você deseja excluir?");	
+		int id = usuario.nextInt();
+		
+		
+		for(Seguro seguro1 : listaSeguroTotal) {
+			int idSeguro = seguro1.getId();
+					
+			if(idSeguro == id) {
+				listaSeguroTotal.remove(seguro1);	
+				System.out.println(listaSeguroTotal);
+				return listaSeguroTotal;
+				}
+		}
+		
+		return listaSeguroTotal;
+	}
+	
+	public static void fazer_cadastro(ArrayList<Condutor> listaCondutorTotal, ArrayList<Seguro> listaSeguroTotal,ArrayList<Frota> listaFrotaTotal  ,ArrayList<Cliente> listaClientesTotal, ArrayList<Seguradora> listaSeguradoraTotal,ArrayList<Sinistro> listaSinistroTotal,ArrayList<Veiculo> listaVeiculoTotal) throws ParseException {
 		
 		String opcao1;
 		int opcaoVoltar = 0;
@@ -363,11 +469,15 @@ public class Menu {
 			System.out.println("O que você deseja cadastrar? \nDigite o número da opção descrita\n");
 			System.out.println("1.1: Cadastrar cliente");
 			System.out.println("1.2: Cadastrar veiculo");
-			System.out.println("1.3: Cadastrar seguradora");
+			System.out.println("1.3: Cadastrar frota");
+			System.out.println("1.4: Cadastrar seguradora");
+			System.out.println("1.5: Cadastrar condutor");
 			System.out.println("0: Voltar");
 			System.out.println("---------------------------------------------------------------------------");
 			System.out.println("\n");
 		
+			
+			
 		// Selecao do usuario
 			System.out.println("Opção selecionada: ");
 			opcao1 = usuario.nextLine();
@@ -380,20 +490,29 @@ public class Menu {
 		} else if(opcao1.equals(Operacoes.CADASTRAR_VEICULO.operacao)) {
 			Veiculo veiculo = fazer_cadastro_veiculo(listaVeiculoTotal);
 			break;
+			
+		} else if(opcao1.equals(Operacoes.CADASTRAR_FROTA.operacao)) {
+			Frota frota = fazer_cadastro_frota(listaFrotaTotal);
+			break;
+			
 		} else if(opcao1.equals(Operacoes.CADASTRAR_SEGURADORA.operacao)) {
 			listaSeguradoraTotal = fazer_cadastro_seguradora(listaSeguradoraTotal);
 			break;
 		
+		} else if(opcao1.equals(Operacoes.CADASTRAR_CONDUTOR.operacao)) {
+			Condutor condutor = fazer_cadastro_condutor(listaCondutorTotal);
+			break;
+		
 		} else if(opcao1.equals(Operacoes.VOLTAR.operacao)) {
 			opcaoVoltar = 1;
-			menuOperacoes(listaClientesTotal,listaSeguradoraTotal,listaSinistroTotal,listaVeiculoTotal);
+			menuOperacoes(listaCondutorTotal, listaSeguroTotal,listaFrotaTotal, listaClientesTotal,listaSeguradoraTotal,listaSinistroTotal,listaVeiculoTotal);
 			break;
 			}
 		} while(opcaoVoltar != 1);}
 
 	}
 	
-	public static void fazer_lista(List<Cliente> listaClientesTotal, List<Seguradora> listaSeguradoraTotal,List<Sinistro> listaSinistroTotal,ArrayList<Veiculo> listaVeiculoTotal) throws ParseException {
+	public static void fazer_lista(ArrayList<Condutor> listaCondutorTotal, ArrayList<Seguro> listaSeguroTotal,ArrayList<Frota> listaFrotaTotal  ,ArrayList<Cliente> listaClientesTotal, ArrayList<Seguradora> listaSeguradoraTotal,ArrayList<Sinistro> listaSinistroTotal,ArrayList<Veiculo> listaVeiculoTotal) throws ParseException {
 		String opcao1;
 		int opcaoVoltar = 0;
 		
@@ -402,16 +521,17 @@ public class Menu {
 			
 			// Menu para Cadastro
 			System.out.println("---------------------------------------------------------------------------");
-			System.out.println("O que você deseja listar? \nDigite exatamente igual a opção descrita\n");
+			System.out.println("O que você deseja listar? \nDigite o número da opção descrita\n");
 			System.out.println("2.1: Listar clientes por seguradora");
-			System.out.println("2.2: Listar sinistros por seguradora");
-			System.out.println("2.3: Listar sinistros por clientes");
-			System.out.println("2.4: Listar veículo por clientes");
-			System.out.println("2.5: Listar veículo por seguradora");
+			System.out.println("2.2: Listar seguros por cliente");
+			System.out.println("2.3: Listar seguros por seguradora");
+			System.out.println("2.4: Listar sinistros por seguradora");
+			System.out.println("2.5: Listar sinistros por seguro");
 			System.out.println("0: Voltar");
 			System.out.println("---------------------------------------------------------------------------");
 			System.out.println("\n");
-		
+			
+			
 		// Selecao do usuario
 			System.out.println("Opção selecionada: ");
 			opcao1 = usuario.nextLine();
@@ -422,38 +542,27 @@ public class Menu {
 			fazer_lista_cliente_seg(listaSeguradoraTotal);
 			break;
 			
-		} 
-		else if(opcao1.equals(Operacoes.LISTAR_SINISTROS_CLI.operacao)) {
-			System.out.println("Qual o nome do cliente?");	
-			String nomeCli = usuario.nextLine();
-			List<Sinistro> listarSinistrosSeg = new ArrayList<Sinistro>();
-			listarSinistrosSeg = fazer_lista_sinistro_cli(listaSinistroTotal, nomeCli);
-			System.out.println(listarSinistrosSeg);
+		} else if(opcao1.equals(Operacoes.LISTAR_SEGUROS_CLI.operacao)) {
+			fazer_lista_seguros_cli(listaSeguradoraTotal);
 			break;
-			
-		}	else if(opcao1.equals(Operacoes.LISTAR_SINISTROS_SEG.operacao)) {
-			fazer_lista_sinistro_seg(listaSinistroTotal);
+		} else if(opcao1.equals(Operacoes.LISTAR_SEGUROS_SEG.operacao)) {
+			fazer_lista_seguros_seg(listaSeguradoraTotal);
 			break;
-			
-		}else if(opcao1.equals(Operacoes.LISTAR_VEICULO_CLI.operacao)) {
-			fazer_lista_veiculo_cli(listaClientesTotal);
+		} else if(opcao1.equals(Operacoes.LISTAR_SINISTROS_SEG.operacao)) {
+			fazer_lista_sinistro_seg(listaSeguradoraTotal);
 			break;
-			
-		}else if(opcao1.equals(Operacoes.LISTAR_VEICULO_SEG.operacao)) {
-			fazer_lista_veiculo_seg(listaSeguradoraTotal);
+		} else if(opcao1.equals(Operacoes.LISTAR_SINISTROS_SEGURO.operacao)) {
+			fazer_lista_sinistro_seguro(listaSinistroTotal);
 			break;
-			
-		}else if(opcao1.equals(Operacoes.VOLTAR.operacao)) {
+		} else if(opcao1.equals(Operacoes.VOLTAR.operacao)) {
 			opcaoVoltar = 1;
-			menuOperacoes(listaClientesTotal,listaSeguradoraTotal,listaSinistroTotal,listaVeiculoTotal);
+			menuOperacoes(listaCondutorTotal, listaSeguroTotal,listaFrotaTotal, listaClientesTotal,listaSeguradoraTotal,listaSinistroTotal,listaVeiculoTotal);
 			break;
-		}
-			
+			}
 		} while(opcaoVoltar != 1);
-		}
-
 	}
-	public static void excluir(List<Cliente> listaClientesTotal, List<Seguradora> listaSeguradoraTotal,List<Sinistro> listaSinistroTotal,ArrayList<Veiculo> listaVeiculoTotal)  throws ParseException{
+	}
+	public static void excluir(ArrayList<Condutor> listaCondutorTotal, ArrayList<Seguro> listaSeguroTotal,ArrayList<Frota> listaFrotaTotal  ,ArrayList<Cliente> listaClientesTotal, ArrayList<Seguradora> listaSeguradoraTotal,ArrayList<Sinistro> listaSinistroTotal,ArrayList<Veiculo> listaVeiculoTotal)  throws ParseException{
 		
 		String opcao1;
 		int opcaoVoltar = 0;
@@ -463,10 +572,11 @@ public class Menu {
 			
 			// Menu para Cadastro
 			System.out.println("---------------------------------------------------------------------------");
-			System.out.println("O que você deseja excluir? \nDigite exatamente igual a opção descrita\n");
+			System.out.println("O que você deseja excluir? \nDigite o número da opção descrita\n");
 			System.out.println("3.1: Excluir cliente");
 			System.out.println("3.2: Excluir veículo");
 			System.out.println("3.3: Excluir sinistro");
+			System.out.println("3.3: Excluir seguro");
 			System.out.println("0: Voltar");
 			System.out.println("---------------------------------------------------------------------------");
 			System.out.println("\n");
@@ -488,11 +598,13 @@ public class Menu {
 		}else if(opcao1.equals(Operacoes.EXCLUIR_SINISTRO.operacao)) {
 			listaSinistroTotal = excluir_sinistro(listaSinistroTotal);
 			break;
-			
+		}else if(opcao1.equals(Operacoes.EXCLUIR_SEGURO.operacao)) {
+			listaSeguroTotal = excluir_seguro(listaSeguroTotal);
+			break;	
 					
 		}else if(opcao1.equals(Operacoes.VOLTAR.operacao)) {
 			opcaoVoltar = 1;
-			menuOperacoes(listaClientesTotal,listaSeguradoraTotal,listaSinistroTotal,listaVeiculoTotal);
+			menuOperacoes(listaCondutorTotal, listaSeguroTotal,listaFrotaTotal,listaClientesTotal,listaSeguradoraTotal,listaSinistroTotal,listaVeiculoTotal);
 			break;
 		}
 			
@@ -501,48 +613,10 @@ public class Menu {
 
 	}
 	
-	public static List<Sinistro> gerar_sinistro(List<Cliente> listaClientesTotal, List<Seguradora> listaSeguradoraTotal,List<Sinistro> listaSinistroTotal,ArrayList<Veiculo> listaVeiculoTotal) throws ParseException{
-		SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-		
-		Scanner usuario = new Scanner(System.in);
-		
-		System.out.println("Qual da data do sinistro? Digite no formato dia/mês/ano");
-		String dataSinistroString = usuario.nextLine();
-		Date dataSinistro = formato.parse(dataSinistroString);
-		
-		System.out.println("Qual o endereço do sinistro?");
-		String endereco = usuario.nextLine();
-		
-		
-		System.out.println("Vamos cadastrar agora a Seguradora!");
-		listaSeguradoraTotal = fazer_cadastro_seguradora(listaSeguradoraTotal);
-		Seguradora seguradoraSin = listaSeguradoraTotal.get(listaSeguradoraTotal.size() -1);
-		
-		System.out.println("Vamos cadastrar agora o Cliente!");
-		listaClientesTotal = fazer_cadastro_cliente(listaClientesTotal);
-		Cliente clienteSin = listaClientesTotal.get(listaClientesTotal.size() -1);
-		
-		Veiculo veiculoSin = listaVeiculoTotal.get(listaVeiculoTotal.size() -1);
-		
-		
-		Sinistro sinistro1 = new Sinistro(dataSinistro, endereco, seguradoraSin, veiculoSin, clienteSin);
-		listaSinistroTotal.add(sinistro1);
-		System.out.println(sinistro1);
-		return listaSinistroTotal;
-		
-	}
 	
-	public static double calcula_seguro(Cliente cliente, List<Sinistro> listaSinistroTotal) throws ParseException {
-		List<Sinistro> listarSinistrosCli = new ArrayList<Sinistro>();
-		listarSinistrosCli = fazer_lista_sinistro_cli(listaSinistroTotal, cliente.getNome()) ;
-		
-		int quantidadeSinistros = listarSinistrosCli.size();
-		 
-		 double seguro = (cliente.calculaScore(cliente) * (1 + quantidadeSinistros));
-		 cliente.valorSeguro = seguro;
-		 return seguro;
-	}
-	public static void calculo_receita_seguradora(List<Seguradora> listaSeguradoraTotal) {
+	
+
+	public static void calculo_receita_seguradora(ArrayList<Seguradora> listaSeguradoraTotal) {
 		Scanner usuario = new Scanner(System.in);
 		
 		System.out.println("Digite o número da seguradora você deseja calcular a receita?");
@@ -556,50 +630,9 @@ public class Menu {
 		
 	}
 	
-	public static void transferir_seguro(List<Cliente> listaClientesTotal, List<Seguradora> listaSeguradoraTotal, List<Sinistro> listaSinistroTotal,ArrayList<Veiculo> listaVeiculoTotal) throws ParseException {
-		Scanner usuario = new Scanner(System.in);
-		
-		System.out.println("Digite o número do cliente que irá retirar os veículos para transferir o seguro:\n");
-		for(int i = 0; i < listaClientesTotal.size()- 1; i++) {
-			System.out.println(i + ": " + listaClientesTotal.get(i).getNome());
-		}
-		int clienteN1 = usuario.nextInt();
-		
-		System.out.println("Digite o número do cliente que irá receber os veículos na transferência do seguro:\n");
-		for(int i = 0; i < listaClientesTotal.size()- 1; i++) {
-			System.out.println(i + ": " + listaClientesTotal.get(i).getNome());
-		}
-		
-		int clienteN2 = usuario.nextInt();
-		ArrayList<Veiculo> listaVeiculoVazia = null;
-		ArrayList<Veiculo> listaVeiculoTransferida = null;
-		
-		
-		// Seleciona o cliente na posicao da lista selecionada pelo usuario
-		Cliente cliente1 = listaClientesTotal.get(clienteN1);
-		Cliente cliente2 = listaClientesTotal.get(clienteN2);
-		
-		
-		// Modifica os veiculos
-		listaVeiculoTransferida = cliente1.getListaVeiculo();
-		cliente1.setListaVeiculo(listaVeiculoVazia);	// retira os carros do cliente1
-		
-		
-		// Adicionando cada veiculo novo na lista que o cliente2 ja tinha
-		for(int j = 0; j < listaVeiculoTransferida.size(); j++) {
-			cliente2.adicionaVeiculo(listaVeiculoTransferida.get(j));
-			
-		}
-		
-		System.out.println(cliente2.getNome() + " recebeu os veiculos:" + listaVeiculoTransferida);
-		
-		System.out.println("Veículos atuais de " +cliente2.getNome() +":" + cliente2.getListaVeiculo());
-		System.out.println("A lista de veículos de " +cliente1.getNome() + " foi esvaziada");
-		
-		
-	}
 	
-	public static void menuOperacoes(List<Cliente> listaClientesTotal, List<Seguradora> listaSeguradoraTotal, List<Sinistro> listaSinistroTotal,	ArrayList<Veiculo> listaVeiculoTotal) throws ParseException {
+	
+	public static void menuOperacoes(ArrayList<Condutor> listaCondutorTotal, ArrayList<Seguro> listaSeguroTotal,ArrayList<Frota> listaFrotaTotal  ,ArrayList<Cliente> listaClientesTotal, ArrayList<Seguradora> listaSeguradoraTotal,ArrayList<Sinistro> listaSinistroTotal,ArrayList<Veiculo> listaVeiculoTotal) throws ParseException {
 		// Menu de Operações
 		
 		int opcao = 0;
@@ -607,19 +640,16 @@ public class Menu {
 		
 		
 		try (Scanner usuario = new Scanner(System.in)) {
+			while(true) {
 			
-			
-			do { 
 			// Menu para Cadastro
 				System.out.println("------------------------------------------------------------------");
 				System.out.println("Digite... ");
 				System.out.println("1: Para CADASTROS ");
 				System.out.println("2: Para LISTAR");
 				System.out.println("3: Para EXCLUIR");
-				System.out.println("4: Para GERAR SINISTRO");
-				System.out.println("5: Para TRANSFERIR SEGURO");  // Sinistro
-				System.out.println("6: Para CALCULAR RECEITA SEGURADORA");
-				System.out.println("7: Para SAIR");
+				System.out.println("4: Para CALCULAR RECEITA SEGURADORA");
+				System.out.println("5: Para SAIR");
 				System.out.println("------------------------------------------------------------------");
 				System.out.println("\n");
 			
@@ -630,35 +660,26 @@ public class Menu {
 				
 				if (opcao == MenuOperacoes.CADASTRAR.operacao) { // listar Clientes cadastrados
 					
-					fazer_cadastro(listaClientesTotal,listaSeguradoraTotal,listaSinistroTotal,listaVeiculoTotal);
-						break;
+					fazer_cadastro(listaCondutorTotal, listaSeguroTotal,listaFrotaTotal,listaClientesTotal,listaSeguradoraTotal,listaSinistroTotal,listaVeiculoTotal);
+						
 				} else if(opcao == MenuOperacoes.LISTAR.operacao) {
-					fazer_lista(listaClientesTotal, listaSeguradoraTotal, listaSinistroTotal,listaVeiculoTotal);
-					break;		
-				} else if(opcao == MenuOperacoes.EXCLUIR.operacao) {
-					excluir(listaClientesTotal, listaSeguradoraTotal, listaSinistroTotal,listaVeiculoTotal);
-					break;
-				} else if(opcao == MenuOperacoes.GERAR_SINISTRO.operacao) {
-					listaSinistroTotal = gerar_sinistro(listaClientesTotal, listaSeguradoraTotal, listaSinistroTotal,listaVeiculoTotal);
-					break;
-				} else if(opcao == MenuOperacoes.TRANSFERIR_SEGURO.operacao) {
-					transferir_seguro(listaClientesTotal, listaSeguradoraTotal, listaSinistroTotal,listaVeiculoTotal);
+					fazer_lista(listaCondutorTotal, listaSeguroTotal,listaFrotaTotal,listaClientesTotal, listaSeguradoraTotal, listaSinistroTotal,listaVeiculoTotal);
 					
-					break;
+				} else if(opcao == MenuOperacoes.EXCLUIR.operacao) {
+					excluir(listaCondutorTotal, listaSeguroTotal,listaFrotaTotal,listaClientesTotal, listaSeguradoraTotal, listaSinistroTotal,listaVeiculoTotal);
+					
+					
 				} else if(opcao == MenuOperacoes.CALCULAR_RECEITA.operacao) {
 					calculo_receita_seguradora(listaSeguradoraTotal);
 					
-					break;
 				} else if(opcao == MenuOperacoes.SAIR.operacao) {
 					break;
 				}
 									
-				
-				}while(opcao != 7);
-			
 			}
 		
+			}
+		}
 	}
 	
 	
-}

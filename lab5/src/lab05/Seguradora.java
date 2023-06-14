@@ -13,7 +13,7 @@ public class Seguradora {
 	 private String endereco;
 	 private ArrayList <Seguro> listaSeguros = new ArrayList<Seguro>();
 	 private ArrayList <Cliente> listaClientes = new ArrayList<Cliente>();
-	 private List < Sinistro > listaSinistros = new ArrayList<Sinistro>();
+	 private ArrayList < Sinistro > listaSinistros = new ArrayList<Sinistro>();
 
 	 // Construtor
 	 public Seguradora(String cnpj, String nome , String telefone , String email , String endereco ) {
@@ -79,13 +79,19 @@ public class Seguradora {
 		this.listaClientes.add(cliente);
 	}
 	
-	 public List < Sinistro > getListaSinistros(){
+	 public ArrayList < Sinistro > getListaSinistros(){
 			return listaSinistros;
 			}
 	public void adicionaSinistros(Sinistro sinistro) {
 		this.listaSinistros.add(sinistro);
 	}
-	
+	/*public void setListaSinistros() {
+		for(int i = 0; i < listaSeguros.size(); i++) {
+			for(Sinistro sinistro : listaSeguros.get(i).getListaSinistro()) {
+				this.listaSinistros.add(sinistro);
+				}
+			}
+	}*/
 	// Verifica se o cliente ja foi cadastrado antes, se nao foi ele adiciona novo
 	public boolean cadastrarCliente(Cliente cliente1)  {
 		int verifica = 1;
@@ -172,8 +178,8 @@ public class Seguradora {
 			
 	
 	// lista os clientes PF ou PJ dependendo do desejo do usuario
-	public List<Cliente> listarClientes(String tipoCliente){
-		List<Cliente> listaClientes = new ArrayList<Cliente>();
+	public ArrayList<Cliente> listarClientes(String tipoCliente){
+		ArrayList<Cliente> listaClientes = new ArrayList<Cliente>();
 		
 		for(Cliente cliente : getListaClientes() ) { 
 			//System.out.println(getListaClientes());	
@@ -287,8 +293,8 @@ public class Seguradora {
 	 }
 	 
 	// Vai listar todas as ocorrencias de sinistros de um cliente
-		 public List < Sinistro > listarSinistros(String nomeCliente){
-		 List < Sinistro > listaSinistrosCondutor = new ArrayList<Sinistro>();
+		 public ArrayList < Sinistro > listarSinistros(String nomeCliente){
+			 ArrayList < Sinistro > listaSinistrosCondutor = new ArrayList<Sinistro>();
 		 	
 		 	for(Sinistro sinistro : getListaSinistros()) {
 		 		String nomeCondutorSinistro = sinistro.getCondutor().getNome();
@@ -306,7 +312,7 @@ public class Seguradora {
 	 public double calcularReceita() {
 		 double receita = 0.0;
 		 for(Seguro seguro : listaSeguros)
-			 receita += seguro.valorMensal;
+			 receita += seguro.getValorMensal();
 		 return receita;
 	 }
 	 

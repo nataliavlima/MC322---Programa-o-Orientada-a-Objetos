@@ -61,7 +61,7 @@ public class SeguroPF extends Seguro{
 		return quantidadeSinistrosCondutor;
 	}
 
-	@Override
+	//@Override
 	public double calcularValor() {
          int idade = calculaIdade(cliente.getDataNascimento());
 		
@@ -85,13 +85,30 @@ public class SeguroPF extends Seguro{
 		 
 		 // define o valor mensal
 		 double valor = (CalcSeguro.VALOR_BASE.fator)*fator_idade*(1 + 1/(quantidadeVeiculos + 2))*(2 + quantidadeSinistrosCliente/10) * (5 + quantidadeSinistrosCondutor/10);
+		 this.setValorMensal(valor);
 		 return valor;
 		
 	}
+	
+	public String toString () {
+		return "SeguroPF: [" +
+				" ID: " + this.id + 
+				//", Data início: " + this.dataInicio + 
+				//", Data fim: " + this.dataFim + 
+				", Seguradora: " + this.seguradora.getNome() + 
+				", Valor mensal: R$ " + calcularValor() + 
+				", Veículo: " + this.veiculo.getPlaca() + 
+				", Cliente: " + this.cliente.getNome() +
+				"\n    Lista Sinistros (endereços):\n " + "   " + listaEnderecoSinistros() + 
+				"\n    Lista Condutores (nomes):\n " + "   " + listaNomeCondutores() + 
+				" ]\n";
+		
+		}
+	/*
 	 @Override
 	public String toString () {
 		return  super.toString() +  
 				" Veículo: \n" + this.veiculo.getPlaca() + 
 				" Cliente: " + this.cliente.getNome()+ "\n";
-	}
+	}*/
 }
